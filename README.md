@@ -91,12 +91,13 @@ we have three basic amplifier toplogies which are:
     <caption><center><em>credits:Prof. Hesham Omran</em></caption>
 </figure>
 <p>
-<ul>
-<li>1. DC analysis: to calculate DC operating point to check operation of mosfet in saturation (VDS>Vov)</li>
-<li>C
-</ul>
+<ol>
+<li>DC analysis: to calculate DC operating point to check operation of mosfet in saturation (VDS>Vov)</li>
+<li>Calculate small signal parameters(gm,ro)</li>
+<li>Determine Amplifier Parameters(Rin, Rout, Av, Ai)</li>
+</ol>
 </p>
-<h3>2.2 Current Source Gain</h3>
+<h3>2.2. Common Source Amplifier</h3>
 <figure>
     <img src="images/basicamplifierstages/currentsourcegainth.png"/>
     <caption><center><em>credits:Prof. Hesham Omran</em></caption>
@@ -107,14 +108,24 @@ we have three basic amplifier toplogies which are:
 </figure>
 <figure>
     <img src="images/basicamplifierstages/currentsourcegain.png"/>
-    <caption><center>Current source Gain</caption>
+    <caption><center>Common source Gain</caption>
 </figure>
 <p>
 I removed dc value when plotting output by subtracting the output voltage from the average of the total signal using cadence calculator, you will find that they change in phase to explain this:<br />
 when <mark>vgs increases drain</mark> current increases which affect vout precedingly as voltage drop on resistance increases which makes <mark>Vout decreases</marK> thats why they have phase difference of pi==(180 degrees)
 </p>
- 
-
+<p>
+Common Source Amplifier Parameters:
+</p>
+<figure>
+    <img src="images/basicamplifierstages/commonsourceamplifier.png"/>
+    <caption><center>Common Source Amplifier Parameters</caption>
+    <caption><center><em>credits:Prof. Hesham Omran</em></caption>
+</figure>
+ <p>
+    Remember that we are using the amplifier to amplify Vsig not Vin.<br/>
+    
+ </p>
 
 
 
