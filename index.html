@@ -124,6 +124,45 @@ layout: default
             <li>Distortion</li>
         </ol>
     <h3>2.2. Common Source Amplifier</h3>
+    <p>
+        Common Source Amplifier Parameters:
+        </p>
+        <figure>
+            <img src="images/basicamplifierstages/commonsourceamplifier.png"/>
+            <caption><center>Common Source Amplifier Parameters</caption>
+            <caption><center><em>credits:Prof. Hesham Omran</em></caption>
+        </figure>
+         <p>
+            Remember that we are using the amplifier to amplify Vsig not Vin.<br/>
+            which corresponds to Vsignal.
+         </p>    
+         <figure>
+            <img src="images/basicamplifierstages/maximumgain.png"/>
+            <caption><center>Common Source Amplifier Parameters</caption>
+            <caption><center><em>credits:Prof. Hesham Omran</em></caption>
+        </figure>
+         <p>
+            Intrinsic gain means maximum gain which I can obtain from a 
+            single transistor
+         </p>
+         <figure>
+            <img src="images/basicamplifierstages/smallsignalanalysiscommonsourcenorout.png"/>
+            <caption><center><em>credits:Prof. Hesham Omran</em></caption>
+        </figure>
+         <p>
+            small signal analysis with rout=inf. by using ideal current source, first item you start 
+            to debug in simulation is the bias point because all preceding parameters depend on it
+         </p>
+         <figure>
+            <img src="images/basicamplifierstages/smallsignalanalysiscommonsourcenoroutsim.png"/>
+            <caption><center><em>credits:Prof. Hesham Omran</em></caption>
+        </figure>
+         <p>
+            you wil find vout(red curve) is larger than vin and also of phase difference of pi
+            when I bias with current source I no longer need to adjust Vds and worry about its effect on
+            gate voltage for losing control over the electron channel
+         </p>
+
     <figure>
         <img src="images/basicamplifierstages/currentsourcegainth.png"/>
         <caption><center><em>credits:Prof. Hesham Omran</em></caption>
@@ -140,33 +179,5 @@ layout: default
     I removed dc value when plotting output by subtracting the output voltage from the average of the total signal using cadence calculator, you will find that they change in phase to explain this:<br />
     when <mark>vgs increases drain</mark> current increases which affect vout precedingly as voltage drop on resistance increases which makes <mark>Vout decreases</marK> thats why they have phase difference of pi==(180 degrees)
     </p>
-    <p>
-    Common Source Amplifier Parameters:
-    </p>
-    <figure>
-        <img src="images/basicamplifierstages/commonsourceamplifier.png"/>
-        <caption><center>Common Source Amplifier Parameters</caption>
-        <caption><center><em>credits:Prof. Hesham Omran</em></caption>
-    </figure>
-     <p>
-        Remember that we are using the amplifier to amplify Vsig not Vin.<br/>
-        which corresponds to Vsignal.
-     </p>    
-     <figure>
-        <img src="images/basicamplifierstages/maximumgain.png"/>
-        <caption><center>Common Source Amplifier Parameters</caption>
-        <caption><center><em>credits:Prof. Hesham Omran</em></caption>
-    </figure>
-     <p>
-        Intrinsic gain means maximum gain which I can obtain from a 
-        single transistor
-     </p>
-     <figure>
-        <img src="images/basicamplifierstages/smallsignalanalysiscommonsourcenorout.png"/>
-        <caption><center><em>credits:Prof. Hesham Omran</em></caption>
-    </figure>
-     <p>
-        small signal analysis with rout=inf. by using ideal current source, first item you start 
-        to debug in simulation is the bias point because all preceding parameters depend on it
-     </p>  
+   
 </body>
