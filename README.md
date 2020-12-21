@@ -9,7 +9,7 @@ We neglected short channel effect  & large VDS effect by using large L=1um and s
 </figure>
 <h2>1.2. ID-Vs-VDS</h2>
 <figure>
-    <img src="images/IdVsVds.png" width="100%" height="100%"/>
+    <img src="images/IdVsVDS.png" width="100%" height="100%"/>
     <caption><center>Id Vs Vds for Vgs=800mV</center></caption>
 </figure>
 <h2>1.3. TransConductance</h2>
@@ -85,6 +85,36 @@ we have three basic amplifier toplogies which are:
     <img src="images/basicamplifierstages/basicmosfetamplifiertopologies.png"/>
     <caption><center><em>credits:Prof. Hesham Omran</em></caption>
 </figure>
+<h3>2.1. Amplifier Analysis Steps</h3>
+<figure>
+    <img src="images/basicamplifierstages/amplifieranalysissteps.png"/>
+    <caption><center><em>credits:Prof. Hesham Omran</em></caption>
+</figure>
+<p>
+<ul>
+<li>1. DC analysis: to calculate DC operating point to check operation of mosfet in saturation (VDS>Vov)</li>
+<li>C
+</ul>
+</p>
+<h3>2.2 Current Source Gain</h3>
+<figure>
+    <img src="images/basicamplifierstages/currentsourcegainth.png"/>
+    <caption><center><em>credits:Prof. Hesham Omran</em></caption>
+</figure>
+<figure>
+    <img src="images/basicamplifierstages/currentsourcegainth2.png"/>
+    <caption><center><em>credits:Prof. Hesham Omran</em></caption>
+</figure>
+<figure>
+    <img src="images/basicamplifierstages/currentsourcegain.png"/>
+    <caption><center>Current source Gain</caption>
+</figure>
+<p>
+I removed dc value when plotting output by subtracting the output voltage from the average of the total signal using cadence calculator, you will find that they change in phase to explain this:<br />
+when <mark>vgs increases drain</mark> current increases which affect vout precedingly as voltage drop on resistance increases which makes <mark>Vout decreases</marK> thats why they have phase difference of pi==(180 degrees)
+</p>
+ 
+
 
 
 
