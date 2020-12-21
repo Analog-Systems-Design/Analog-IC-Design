@@ -1,7 +1,47 @@
 ---
 layout: default
 ---
+<head>
+    <title>AnalogICDesign_By_HishamElreedy</title>
+    <style>
+      body {
+        font-family: Helvetica, Arial;
+      }
+      #wrapper {
+        width: 980px;
+        margin: 0 auto;
+        margin-bottom: 1000px;
+      }
+      .toc {
+        background: #fefefe;
+        width: 200px;
+        position: fixed;
+        border: 1px solid #ddd;
+        color: #333;
+      }
+      .toc a {
+        color: #333;
+      }
+      .toc .toc-h2 {
+        margin-left: 10px
+      }
+      .toc .toc-h3 {
+        margin-left: 20px
+      }
+      .toc-visible {
+        color: #000;
+        font-weight: bold;
+      }
+      .toc.right {
+        right: 0
+      }
+    </style>
+  </head>
 <body>
+    <div class="toc" data-toc="h1, h2, h3">
+    </div>
+    <!--<div class="toc right">-->
+    <!--</div>-->
     <h1>1. Mosfet Large & Small Signal Model</h1>
     We neglected short channel effect  & large VDS effect by using large L=1um and small vds=250mV and we also neglected bodyeffect by grounding the source
     <h2>1.1.Schematic</h2>
