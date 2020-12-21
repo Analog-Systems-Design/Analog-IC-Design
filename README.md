@@ -9,7 +9,7 @@ We neglected short channel effect  & large VDS effect by using large L=1um and s
 </figure>
 <h2>1.2. ID-Vs-VDS</h2>
 <figure>
-    <img src="images/Idvsvds.png" width="100%" height="100%"/>
+    <img src="images/IdVsVds.png" width="100%" height="100%"/>
     <caption><center>Id Vs Vds for Vgs=800mV</center></caption>
 </figure>
 <h2>1.3. TransConductance</h2>
