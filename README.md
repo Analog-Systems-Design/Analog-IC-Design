@@ -1,7 +1,7 @@
 # AnalogICDesign_MasterMicroelectronics
 Experimenting all Theoretical Explanations in MasterMicroElectronics Analog IC Design Course on Cadence Virtuoso and Matlab
-<h1>1. Mosfet Small Signal Model</h1>
-We neglected short channel effect  & large VDS effect by using large L=1um and small vds=250mV
+<h1>1. Mosfet Large & Small Signal Model</h1>
+We neglected short channel effect  & large VDS effect by using large L=1um and small vds=250mV and we also neglected bodyeffect by grounding the source
 <h2>1.1.Schematic</h2>
 <figure>
     <img src="images/Mosfet_Tsmc_130nm.png"/>
@@ -18,8 +18,73 @@ We neglected short channel effect  & large VDS effect by using large L=1um and s
     <caption><center>Credits: Dr. Hesham Omran<center></caption>
 </figure>
 <figure>
-    <img src="images/transconductance2.png"/>
-    <caption><center>Credits: Dr. Hesham Omran<center></caption>
+<img src="images/IdVsVGS.png"/>
+<caption><center>ID Vs VGS</center></caption>
 </figure>
+<figure>
+    <img src="images/gmcalculation.png"/>
+    <caption><center>ID vs VGS and marking our operating point VGS=800mV</center></caption>
+</figure>
+<p>
+to calculate gm as our small signal was of 1mV amplitude 
+so X2=VGS+1mV, Y2=I(X2) and X1=VGS-1mV, Y1=I(X1) 
+and then gm=dI/dVGS = dY/dx = 5.1e-5 mhos
+</p>
+<figure>
+    <img src="images/transconductance2.png"/>
+    <caption><center>Credits: prof. Hesham Omran<center></caption>
+</figure>
+<p>
+    Our output resistance upper bound is controlled by the value of ro so we can't increase rout than ro where we can find value of ro from simulation with name of gds where gds=1/ro like in figure below
+</p>
+<figure>
+    <img src="images/gainupperbound.png"/>
+    <caption><center>gds=2.433e-S==>ro=23.523Kohms</center></caption>
+</figure>
+<figure>
+    <img src="images/increasingro.png"/>
+    <caption><center>effect of increasing ro</center></caption>
+    <caption><center><em>Credits: Prof. Hesham Omran</em></caption>
+</figure>
+<p>
+so we cannot increase our Rout more than 23.523Kohms and also we cannot increase Vds very much to increase ro because this will lead to gate loses its control over the drain current
+</p>
+<p>
+We can model our work above by this model in figure below
+</p>
+<figure>
+<img src="images/lowfreqsmallsignalmodel.png"/>
+<caption><center><em>Credits: Prof. Hesham Omran</em></caption>
+</figure>
+<h2>1.3. Short Channel Effects</h2>
+<figure>
+<img src="images/shortchanneleffects.png"/>
+<caption><center><em>Credits: Prof. Hesham Omran</em></caption>
+</figure>
+<p>
+Short Channel effects changes the relation between Mosfet drain current and VGS as in case of long channel we use the famous quadratic equation where if we derive transconductance from this equation we find that it is linear which means that it increases with VGS.<br/>
+While in case of short channel the relation between mosfet drain current and VGS becomes linear which means that if we drive transconductance we will find that it is of constant value.
+</p>
+<figure>
+    <img src="images/shortchanneleffectsro.png"/>
+    <caption><center><em>credits:Prof. Hesham Omran</em></caption>
+</figure>
+<p>
+short channel effect affects the value of ro where it increases very much in this case which leads to high gain but Vgs loses control
+</p>
+<h1>2. Basic Amplifier Stages</h1>
+<p>
+we have three basic amplifier toplogies which are:
+<ul>
+<li>Common Source(CS): which acts as Voltage and current amplifier if we inject the signal from the gate and probing on Drain. where source is <mark>common</mark> between Drain and Gate</li>
+<li>Common Gate(CG): which acts as Voltage amplifier and Current Buffer, Buffer means amplifier of gain=1</li>
+<li>Common Drain(CD) or Source Follower(SF)</li>
+</ul>
+</p>
+<figure>
+    <img src="images/basicamplifierstages/basicmosfetamplifiertopologies.png"/>
+    <caption><center><em>credits:Prof. Hesham Omran</em></caption>
+</figure>
+
 
 
