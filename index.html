@@ -109,7 +109,7 @@ layout: default
         we have two types of analysis whether you are doing it by hand or on
         simulator like cadence spectre simulator.
     </p>
-        <h3>2.1.1. Large Signal Analysis</h3>
+        <h4>2.1.1. Large Signal Analysis</h4>
         <ol>
             <li>Voltage Gain</li>
             <li>Current Gain</li>
@@ -117,12 +117,45 @@ layout: default
             <li>Output Resistance</li>
             <li>Bandwidth</li>
         </ol>
-        <h3>2.1.2 Small Signal Analysis</h3>
+        <h4>2.1.2 Small Signal Analysis</h4>
         <ol>
             <li>Bias Point</li>
             <li>Signal Swing</li>
             <li>Distortion</li>
         </ol>
+    <h4>2.1.3. Direct Analysis on Schematic</h4>
+    <figure>
+        <img src="images/basicamplifierstages/directanalysisonschematic.png"/>
+        <caption><center><em>Credits: Prof. Hisham Omran</em></caption>
+    </figure>
+     <p>
+       We can simplify our solution instead of every time removing every transistor and
+       draw its small signal model in order to deal with very large circuits that contains
+       alot of mos transistors. so first we can remove the vccs gmVgs & gmVbs and add them
+       and put them of mosfet drain branch.<br/>
+       to simplify more, we found that in most cases gate node is grounded when we are calculating
+       small signal model and also we always make the bulk grounded to neglect body effect so that means
+       that Vgs=Vbs so we can gm & gmb together in a single gm so delta_Id=(gm+gmb)delta_Vgs
+     </p>
+     <figure>
+        <img src="images/basicamplifierstages/directanalysisonschematic2.png"/>
+        <caption><center><em>Credits: Prof. Hisham Omran</em></caption>
+    </figure> 
+    <h4>2.1.4. Common Approximations we usually use:</h4>
+    <p>
+        intrinsic gain >>>1 because it is the max gain we can reach and these 
+        approximations are relative for example you can find (1/gm)~=100Kohms
+        which is very large but you will find also that ro=10Mohms thats why I said
+        that approximations are relative 
+    </p>
+    <figure>
+        <center><img src="images/basicamplifierstages/commonapproximations.png"/></center>
+        <caption><center><em>Credits: Prof. Hisham Omran</em></caption>
+    </figure>
+    <h4>2.1.5. Rin/Rout Shortcuts</h4>
+    <p>
+        
+    </p>
     <h3>2.2. Common Source Amplifier</h3>
     <p>
         Common Source Amplifier Parameters:
@@ -135,7 +168,9 @@ layout: default
          <p>
             Remember that we are using the amplifier to amplify Vsig not Vin.<br/>
             which corresponds to Vsignal.
-         </p>    
+         </p>
+         <h4>2.2.1 Case 1. Rout=Inf. using Ideal Current Source </h4> 
+         <h5>2.2.1.1 Theory</h5>
          <figure>
             <img src="images/basicamplifierstages/maximumgain.png"/>
             <caption><center>Common Source Amplifier Parameters</caption>
@@ -153,6 +188,7 @@ layout: default
             small signal analysis with rout=inf. by using ideal current source, first item you start 
             to debug in simulation is the bias point because all preceding parameters depend on it
          </p>
+         <h5>2.2.1.2 simulation</h5>
          <figure>
             <img src="images/basicamplifierstages/smallsignalanalysiscommonsourcenoroutsim.png"/>
             <caption><center><em>Credits: Eng. Hisham Elreedy</em></caption>
@@ -162,7 +198,32 @@ layout: default
             when I bias with current source I no longer need to adjust Vds and worry about its effect on
             gate voltage for losing control over the electron channel
          </p>
-
+         <h5>2.2.1.3 Hand Analysis</h5>
+         <p>
+            First draw current branch on mosfet drain branch and draw ro in parallel with Vds
+            and vbs connect it to ground away from the circuit as in figure below
+        </p>
+         <figure>
+            <img src="images/basicamplifierstages/commonsourceanalysis.png"/>
+            <caption><center><em>Credits: prof. Hesham Omran</em></caption>
+        </figure>
+        <p>
+            Second combine gm*vgs and gmb*vbs because gate is grounded and then combine them
+            in a single gm*vgs and calculate vout by applying kvl on the loop between vout and gnd
+            to obtain vout like in figure below which is equal to Vout=-(gm*Vgs)*ro and vin = Vgs
+            then we can obtain voltage gain(Av)=Vout/Vin=-gm*ro which demonstrates the results
+            that we obtained in the simulation 
+        </p>
+         <figure>
+            <img src="images/basicamplifierstages/commonsourceanalysis2.png"/>
+            <caption><center><em>Credits: prof. Hesham Omran</em></caption>
+        </figure>
+        <figure>
+            <img src="images/basicamplifierstages/commonsourceanalysis3.png"/>
+            <caption><center><em>Credits: prof. Hesham Omran</em></caption>
+        </figure>
+    
+<h4>2.2.2 Case 2: using finite drain resistance </h4>
     <figure>
         <img src="images/basicamplifierstages/currentsourcegainth.png"/>
         <caption><center><em>credits:Prof. Hesham Omran</em></caption>
@@ -179,5 +240,14 @@ layout: default
     I removed dc value when plotting output by subtracting the output voltage from the average of the total signal using cadence calculator, you will find that they change in phase to explain this:<br />
     when <mark>vgs increases drain</mark> current increases which affect vout precedingly as voltage drop on resistance increases which makes <mark>Vout decreases</marK> thats why they have phase difference of pi==(180 degrees)
     </p>
+    <figure>
+        <img src="images/basicamplifierstages/smallsignalanalysiscommonsourceroutsim.png"/>
+        <caption><center><em>Credits: Eng. Hisham Elreedy</em></caption>
+    </figure>
+     <p>
+        vds problem starts to rise here when we put finite resistance on the drain where it made
+        the amplifier with very low gain and when we increase Rout we can't increase it than ro=23.523Kohms
+     </p>
+
    
 </body>
