@@ -1,5 +1,8 @@
-.figure img{
-    width: 100;
-    height: 100;
-    align-items: center;
-}
+figure {
+    border: 1px #cccccc solid;
+    padding: 4px;
+    margin: auto;
+    width: 200px;
+    height: 200px;
+  }
+  
