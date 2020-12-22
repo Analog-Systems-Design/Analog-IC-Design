@@ -25,25 +25,25 @@
     We neglected short channel effect  & large VDS effect by using large L=1um and small vds=250mV and we also neglected bodyeffect by grounding the source
     <h3>1.1.Schematic</h3>
     <figure>
-        <img src="images/Mosfet_Tsmc_130nm.png"/>
+        <center><img src="images/Mosfet_Tsmc_130nm.png"/></center>
         <figcaption>Tsmc_130nm_Schematic</figcaption>
     </figure>
     <h3>1.2. ID-Vs-VDS</h3>
     <figure>
-        <img src="images/IdVsVDS.png" width="100%" height="100%"/>
+        <center><img src="images/IdVsVDS.png" width="100%" height="100%"/></center>
         <caption>Id Vs Vds for Vgs=800mV</caption>
     </figure>
     <h3>1.3. TransConductance</h3>
     <figure>
-        <img src="images/transconductance1.png"/>
+        <center><img src="images/transconductance1.png"/></center>
         <caption>Credits: Dr. Hesham Omran</caption>
     </figure>
     <figure>
-    <img src="images/IdVsVGS.png"/>
+    <center><img src="images/IdVsVGS.png"/></center>
     <caption>ID Vs VGS</caption>
     </figure>
     <figure>
-        <img src="images/gmcalculation.png"/>
+        <center><img src="images/gmcalculation.png"/></center>
         <caption>ID vs VGS and marking our operating point VGS=800mV</caption>
     </figure>
     <p>
@@ -52,18 +52,18 @@
     and then gm=dI/dVGS = dY/dx = 5.1e-5 mhos
     </p>
     <figure>
-        <img src="images/transconductance2.png"/>
+        <center><img src="images/transconductance2.png"/></center>
         <caption>Credits: prof. Hesham Omran</caption>
     </figure>
     <p>
         Our output resistance upper bound is controlled by the value of ro so we can't increase rout than ro where we can find value of ro from simulation with name of gds where gds=1/ro like in figure below
     </p>
     <figure>
-        <img src="images/gainupperbound.png"/>
+        <center><img src="images/gainupperbound.png"/></center>
         <caption>gds=2.433e-S==>ro=23.523Kohms</caption>
     </figure>
     <figure>
-        <img src="images/increasingro.png"/>
+        <center><img src="images/increasingro.png"/></center>
         <caption>effect of increasing ro</caption>
         <caption><em>Credits: Prof. Hesham Omran</em></caption>
     </figure>
@@ -74,12 +74,12 @@
     We can model our work above by this model in figure below
     </p>
     <figure>
-    <img src="images/lowfreqsmallsignalmodel.png"/>
+    <center><img src="images/lowfreqsmallsignalmodel.png"/></center>
     <caption><em>Credits: Prof. Hesham Omran</em></caption>
     </figure>
     <h3>1.4. Short Channel Effects</h3>
     <figure>
-    <img src="images/shortchanneleffects.png"/>
+    <center><img src="images/shortchanneleffects.png"/></center>
     <caption><em>Credits: Prof. Hesham Omran</em></caption>
     </figure>
     <p>
@@ -87,7 +87,7 @@
     While in case of short channel the relation between mosfet drain current and VGS becomes linear which means that if we drive transconductance we will find that it is of constant value.
     </p>
     <figure>
-        <img src="images/shortchanneleffectsro.png"/>
+        <center><img src="images/shortchanneleffectsro.png"/></center>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
     </figure>
     <p>
@@ -103,12 +103,12 @@
     </ul>
     </p>
     <figure>
-        <img src="images/basicamplifierstages/basicmosfetamplifiertopologies.png"/>
+        <center><img src="images/basicamplifierstages/basicmosfetamplifiertopologies.png"/></center>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
     </figure>
     <h3>2.1. Amplifier Analysis Steps</h3>
     <figure>
-        <img src="images/basicamplifierstages/amplifieranalysissteps.png"/>
+        <center><img src="images/basicamplifierstages/amplifieranalysissteps.png"/></center>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
     </figure>
     <p>
@@ -119,7 +119,7 @@
     </ol>
     </p>
     <figure>
-        <img src="images/basicamplifierstages/largeandsmallsignalanalysis.png"/>
+        <center><img src="images/basicamplifierstages/largeandsmallsignalanalysis.png"/></center>
         <caption>analysis types</caption>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
     </figure>
@@ -144,7 +144,7 @@
         </ol>
     <h4>2.1.3. Direct Analysis on Schematic</h4>
     <figure>
-        <img src="images/basicamplifierstages/directanalysisonschematic.png"/>
+        <center><img src="images/basicamplifierstages/directanalysisonschematic.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
      <p>
@@ -157,7 +157,7 @@
        that Vgs=Vbs so we can gm & gmb together in a single gm so delta_Id=(gm+gmb)delta_Vgs
      </p>
      <figure>
-        <img src="images/basicamplifierstages/directanalysisonschematic2.png"/>
+        <center><img src="images/basicamplifierstages/directanalysisonschematic2.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure> 
     <h4>2.1.4. Common Approximations we usually use:</h4>
@@ -168,7 +168,7 @@
         that approximations are relative 
     </p>
     <figure>
-        <img src="images/basicamplifierstages/commonapproximations.png"/>
+        <center><img src="images/basicamplifierstages/commonapproximations.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
     <h4>2.1.5. Rin/Rout Shortcuts</h4>
@@ -180,7 +180,7 @@
         Common Source Amplifier Parameters:
         </p>
         <figure>
-            <img src="images/basicamplifierstages/commonsourceamplifier.png"/>
+            <center><img src="images/basicamplifierstages/commonsourceamplifier.png"/></center>
             <caption>Common Source Amplifier Parameters</caption>
             <caption><em>credits:Prof. Hesham Omran</em></caption>
         </figure>
@@ -191,7 +191,7 @@
          <h4>2.2.1 Case 1. Rout=Inf. using Ideal Current Source </h4> 
          <h5>2.2.1.1 Theory</h5>
          <figure>
-            <img src="images/basicamplifierstages/maximumgain.png"/>
+            <center><img src="images/basicamplifierstages/maximumgain.png"/></center>
             <caption>Common Source Amplifier Parameters</caption>
             <caption><em>credits:Prof. Hesham Omran</em></caption>
         </figure>
@@ -200,7 +200,7 @@
             single transistor
          </p>
          <figure>
-            <img src="images/basicamplifierstages/smallsignalanalysiscommonsourcenorout.png"/>
+            <center><img src="images/basicamplifierstages/smallsignalanalysiscommonsourcenorout.png"/></center>
             <caption><em>credits:Prof. Hesham Omran</em></caption>
         </figure>
          <p>
@@ -209,7 +209,7 @@
          </p>
          <h5>2.2.1.2 simulation</h5>
          <figure>
-            <img src="images/basicamplifierstages/smallsignalanalysiscommonsourcenoroutsim.png"/>
+            <center><img src="images/basicamplifierstages/smallsignalanalysiscommonsourcenoroutsim.png"/></center>
             <caption><em>Credits: Eng. Hisham Elreedy</em></caption>
         </figure>
          <p>
@@ -223,7 +223,7 @@
             and vbs connect it to ground away from the circuit as in figure below
         </p>
          <figure>
-            <img src="images/basicamplifierstages/commonsourceanalysis.png"/>
+            <center><img src="images/basicamplifierstages/commonsourceanalysis.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>
         <p>
@@ -234,25 +234,25 @@
             that we obtained in the simulation 
         </p>
          <figure>
-            <img src="images/basicamplifierstages/commonsourceanalysis2.png"/>
+            <center><img src="images/basicamplifierstages/commonsourceanalysis2.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>
         <figure>
-            <img src="images/basicamplifierstages/commonsourceanalysis3.png"/>
+            <center><img src="images/basicamplifierstages/commonsourceanalysis3.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>
     
 <h4>2.2.2 Case 2: using finite drain resistance </h4>
     <figure>
-        <img src="images/basicamplifierstages/currentsourcegainth.png"/>
+        <center><img src="images/basicamplifierstages/currentsourcegainth.png"/></center>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
     </figure>
     <figure>
-        <img src="images/basicamplifierstages/currentsourcegainth2.png"/>
+        <center><img src="images/basicamplifierstages/currentsourcegainth2.png"/></center>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
     </figure>
     <figure>
-        <img src="images/basicamplifierstages/currentsourcegain.png"/>
+        <center><img src="images/basicamplifierstages/currentsourcegain.png"/></center>
         <caption>Common source Gain</caption>
     </figure>
     <p>
@@ -260,7 +260,7 @@
     when <mark>vgs increases drain</mark> current increases which affect vout precedingly as voltage drop on resistance increases which makes <mark>Vout decreases</marK> thats why they have phase difference of pi==(180 degrees)
     </p>
     <figure>
-        <img src="images/basicamplifierstages/smallsignalanalysiscommonsourceroutsim.png"/>
+        <center><img src="images/basicamplifierstages/smallsignalanalysiscommonsourceroutsim.png"/></center>
         <caption><em>Credits: Eng. Hisham Elreedy</em></caption>
     </figure>
      <p>
