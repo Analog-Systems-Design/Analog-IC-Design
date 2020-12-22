@@ -86,5 +86,16 @@ td{padding:10px;background:#ccc}.wrapper{width:960px}header{background-color:#17
 
 section {
     position: absolute;
-    transform: translate(75%, 0%);
+    transform: translate(70%, 0%);
+}
+#headtoc {
+    top: 0;
+    left: 0;
+    height: 100%;
+    position: fixed;
+    background: #333;
+    box-shadow: inset -5px 0 5px 0 #000;
+    width: 15%;
+    padding-top: 20px;
+    color: #fff;
 }
