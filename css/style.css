@@ -76,7 +76,7 @@ ol{list-style-position:inside;list-style:decimal;padding-left:25px}
 blockquote{margin:0;padding:0 0 0 20px;font-style:italic}
 dl,dt,dd,dl p{color:#444}dl dt{font-weight:bold}dl dd{padding-left:20px;font-style:italic}
 dl p{padding-left:20px;font-style:italic}hr{border:0;background:#ccc;height:1px;margin:0 0 24px}
-img{position:relative;margin:0 auto;max-width:650px;padding:5px;margin:10px 0 32px 0;border:1px solid #ccc}
+img{position:relative;margin:0 auto;max-width:650px;padding:5px;margin:10px 0 0 0;border:1px solid #ccc}
 p img,.emoji{display:inline;margin:0;padding:0;vertical-align:middle;text-align:center;border:none}
 code,pre{font-family:Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;color:#000;font-size:14px}
 pre{padding:4px 12px;background:#FDFEFB;border-radius:4px;border:1px solid #D7D8C8;overflow:auto;overflow-y:hidden;margin-bottom:32px}
