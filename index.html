@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="css/style.css"/>
     <script src="js/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <SCRIPT SRC='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></SCRIPT>
+    <SCRIPT>MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}})</SCRIPT>
 </head>
 <body>
     <div class="wrapper">
@@ -18,11 +21,13 @@
             <li class="download"><a class="buttons" href="https://github.com/hishamelreedy/analogicdesign">SimulationFiles</a></li>
             <li><a class="buttons github" href="https://github.com/hishamelreedy/analogicdesign">View On GitHub</a></li>
         </ul>
+            <p class="header">Feel free to contact me if you don't understand anything</p>
           <p class="header">This project is maintained by <a class="header name" href="https://github.com/hishamelreedy/">HishamElreedy</a></p>
           <p class="header"><blockquote>اللهم لا علم لنا الأ ما علمتنا به انك انت علام الغيوب</blockquote></p>
 
         </header>
     <section>
+    <h1>Analog IC Design</h1>
     <h2>1. Mosfet Large & Small Signal Model</h1>
     We neglected short channel effect  & large VDS effect by using large L=1um and small vds=250mV and we also neglected bodyeffect by grounding the source
     <h3>1.1.Schematic</h3>
@@ -198,7 +203,9 @@
        so we can add gm & gmb to each other while calculating but keep in mind that they are of different 
        values. always try to solve as much as possible on the drawing instead of writting many equations,<br/>
        after all these simplifications we have now only one equation left which is KCL @ node D<br/>
-       which is: ix = (gm+gmb)*(-ixRs)+((Vx-Ix*RS)/ro) which can get from it easily Vx/Ix which corresponds to 
+       which is:$$i_x ={ (g_m+g_{mb})*(-i_xR_s)+{v_x-i_xR_S \over r_o}}$$
+       $$R_{LFD}={v_x \over i_x}={r_o+[(gm+gm_b)*r_o+1]R_S}=r_o[1+(gm+gm_b)R_s]$$
+       which can get from it easily Vx/Ix which corresponds to 
        the value of resistance looking from drain we can neglect Rs comparing to gm*ro<br/>
        we can only put gmb=0 when Rs=0 where we will not have body effect
     </p>
@@ -216,14 +223,57 @@
     </figure>
     <h5>2.1.5.2. Resistance Looking From Source</h5>
     <p>
-        when looking from source we have same condition on gate where Vbs=Vgs & delta_Id=gm*delta_Vgs but the voltage on source node will differ because we replaced rs with
-        a voltage source of value Vx and of current Ix which is injected to mosfet so Vgs=Vg-Vs=0-Vx=-Vx and then 
+        when looking from source we have same condition on gate where Vbs=Vgs & delta_Id=gm*delta_Vgs
+         but the voltage on source node will differ because we replaced rs with a voltage source of value Vx 
+         and of current Ix which is injected to mosfet so Vgs=Vg-Vs=0-Vx=-Vx and to explain how idrain=isource
+         we can say that mosfet acts like a supernode where by conservation law of charge we can tell that the current
+         that entered this node from the source, it will exit also from drain  after all these simplifications what
+         remains now is performing a kcl at source of mosfet.<br/>
+         KCl @ node S: $$i_x={(g_m+g_{mb})*v_x}+{ v_x-i_x*R_D \over r_o}$$
+         $$ R_{LFS}={v_x \over i_x}={1 \over {gm+gmb+{1 \over r_o}}}*{(1+{R_D \over r_o})}= {1 \over {g_m+g_{mb}}}*{(1+ {R_D \over r_o})}$$
+         $$R_{LFS}={1 \over {g_m+g_{mb}}}*{(1+{R_D \over r_o})}$$
+         $$ (@RD=0)$$ $$R_{LFS}={1 \over {g_m+g_{mb}}}$$
+         which means that source acts like low impedance node and this connection @Rd=0 we call it diode connected(gate and drain connected)
+        because @ this case vds=vgs which means that it is now not a voltage controlled current source and changed to a resistor of 1/gm
+        because id=gmvgs=gmvds====>R(diode connected)=Vds/Ids = 1/gm we call it also source absorbtion<br/>
+        in terms of large signal analysis the diode connected mosfet is always at saturation because vds=vgs and the condition
+        for saturation is Vds>Vgs-Vth which will always be satisfied
+         <!--  $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$ -->
     </p>
     <figure>
         <center><img src="images/basicamplifierstages/resistancelookingfromsource.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
-    <h3>2.2. Common Source Amplifier</h3>
+    <p>
+        for below quiz we are trying to calculate Resistance when looking from source for a three cascoded mosfets in order
+        to calculate it we will first start with mosfet that is connected to ground in small signal analysis which is Vdd node in
+        case of Pmos as in figure below after calculating rseen from each mosfet we substitute the mosfet in the drawing with
+        derived R_LFS and then continue on the preceding mosfet and so on, you will find the answer in below quiz is very strange as 
+        R_LFS=ro while we said before that resistancelookingfromsource is a low impedance node but ro is of very high impedance
+        and this occured due to cascoding transistors which raises our attention to the effect of cascode stages in the future when
+        we are talking about amplifiers
+    </p>
+    <figure>
+        <center><img src="images/basicamplifierstages/resistancelookingfromsourcequiz.png"/></center>
+        <caption><em>Credits: Prof. Hisham Omran</em></caption>
+    </figure>
+    <h5>2.1.5.3. summary</h5>
+    <figure>
+        <center><img src="images/basicamplifierstages/rinroutsummary.png"/></center>
+        <caption><em>Credits: Prof. Hisham Omran</em></caption>
+    </figure>
+    <h3>2.2. Voltage Amplifier Model</h3>
+    <p>
+        $$R_{in}={v_{in} \over {i_{in}}}$$
+        $$R_{out}=R_{thevenin}={v_x \over i_x} @vin=0$$
+        $$v_{out,oc}=v_{thevenin}=A_v*v_{in}$$
+        $$A_v={v_{out,oc} \over v_{in}}$$
+    </p>
+    <figure>
+        <center><img src="images/basicamplifierstages/voltageamplifiermodel.png"/></center>
+        <caption><em>Credits: Prof. Hisham Omran</em></caption>
+    </figure>
+    <h3>2.3. Common Source Amplifier</h3>
     <p>
         Common Source Amplifier Parameters:
         </p>
@@ -236,8 +286,8 @@
             Remember that we are using the amplifier to amplify Vsig not Vin.<br/>
             which corresponds to Vsignal.
          </p>
-         <h4>2.2.1 Case 1. Rout=Inf. using Ideal Current Source </h4> 
-         <h5>2.2.1.1 Theory</h5>
+         <h4>2.3.1 Case 1. Rout=Inf. using Ideal Current Source </h4> 
+         <h5>2.3.1.1 Theory</h5>
          <figure>
             <center><img src="images/basicamplifierstages/maximumgain.png"/></center>
             <caption>Common Source Amplifier Parameters</caption>
@@ -255,7 +305,7 @@
             small signal analysis with rout=inf. by using ideal current source, first item you start 
             to debug in simulation is the bias point because all preceding parameters depend on it
          </p>
-         <h5>2.2.1.2 simulation</h5>
+         <h5>2.3.1.2 simulation</h5>
          <figure>
             <center><img src="images/basicamplifierstages/smallsignalanalysiscommonsourcenoroutsim.png"/></center>
             <caption><em>Credits: Eng. Hisham Elreedy</em></caption>
@@ -265,7 +315,7 @@
             when I bias with current source I no longer need to adjust Vds and worry about its effect on
             gate voltage for losing control over the electron channel
          </p>
-         <h5>2.2.1.3 Hand Analysis</h5>
+         <h5>2.3.1.3 Hand Analysis</h5>
          <p>
             First draw current branch on mosfet drain branch and draw ro in parallel with Vds
             and vbs connect it to ground away from the circuit as in figure below
@@ -290,7 +340,7 @@
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>
     
-<h4>2.2.2 Case 2: using finite drain resistance </h4>
+<h4>2.3.2 Case 2: using finite drain resistance </h4>
     <figure>
         <center><img src="images/basicamplifierstages/currentsourcegainth.png"/></center>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
@@ -317,6 +367,7 @@
      </p>
      <h2>3. Cascode Amplifier</h2>
      <p>
+
      </p>
 </section>
 <footer>
