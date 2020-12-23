@@ -204,7 +204,8 @@
        values. always try to solve as much as possible on the drawing instead of writting many equations,<br/>
        after all these simplifications we have now only one equation left which is KCL @ node D<br/>
        which is:$$i_x ={ (g_m+g_{mb})*(-i_xR_s)+{v_x-i_xR_S \over r_o}}$$
-       $$R_{LFD}={v_x \over i_x}={r_o+[(gm+gm_b)*r_o+1]R_S}=r_o[1+(gm+gm_b)R_s]$$
+       $$R_{LFD}={v_x \over i_x}={r_o+[(gm+gm_b)*r_o+1]R_S}={{r_o}+({g_m}+{g_{mb}}){r_o}R_s+R_s}=r_o[1+(gm+gm_b)R_s]+R_s$$
+       $$neglecting R_s: then, R_{LFD} \sim = r_o[1+(gm+gm_b)R_s]$$
        which can get from it easily Vx/Ix which corresponds to 
        the value of resistance looking from drain we can neglect Rs comparing to gm*ro<br/>
        we can only put gmb=0 when Rs=0 where we will not have body effect
@@ -263,16 +264,35 @@
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
     <h3>2.2. Voltage Amplifier Model</h3>
-    <p>
-        $$R_{in}={v_{in} \over {i_{in}}}$$
-        $$R_{out}=R_{thevenin}={v_x \over i_x} @vin=0$$
-        $$v_{out,oc}=v_{thevenin}=A_v*v_{in}$$
-        $$A_v={v_{out,oc} \over v_{in}}$$
-    </p>
     <figure>
         <center><img src="images/basicamplifierstages/voltageamplifiermodel.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
+    <p>
+    Lets model above figure with mathematical equations:
+        $$InputResistance: R_{in}={v_{in} \over {i_{in}}}$$
+        $$Output Resistance: R_{out}=R_{thevenin}={v_x \over i_x} @vin=0$$
+        $$v_{out,opencircuit}=v_{thevenin}=A_v*v_{in}$$
+        $$OpenCircuitVoltageGain: A_{v_{opencircuit}}={v_{out,opencircuit} \over v_{in}}$$
+        $$i_{out,shortcircuit}=i_{Norton}={{G_m}*v_{in}} @vout=0$$
+        $$TransConductance: G_m={i_{out,shortcircuit} \over v_{in}}$$
+        $$Norton to Thevenin: v_{out,opencircuit}={A_v*v_{in}}={i_{norton}*R_{out}}={({G_m}{v_{in}})}{R_{out}}$$
+        $$A_v={v_{out,opencircuit} \over v_{in}}={G_m}{R_{out}}$$
+        $$ShortCircuitCurrentGain: A_i={i_{out,sc} \over i_{in}}={i_{out,shortcircuit} \over {{v_{in}} \over R_{in}}}={{G_m}R_{in}}$$
+    </p>
+    <h4>2.2.1 Voltage Amplifier model Equations</h4>
+    <p>
+        Lets summarize these equations as follow:
+        $$R_{in}={v_{in} \over i_{in}}$$
+        $$R_{out}={v_x \over i_x} @ v_{in}=0$$ 
+        $$G_m={i_{out,shortcircuit} \over v_{in}} @v_{out}=0$$
+        $$A_v={{G_m} R_{out}}$$
+        $$A_i={{G_m}R_{in}}$$
+    Remeber that we can get first two equations of Rin& Rout from shortcuts that we learned before all remaining will be is 
+    calculating transconductance using norton method and then at the end we can get voltage & current gain this method of 
+    solution we call it divide and conquer where we simplified large problems into many small problems that we could solve it
+    independent of each other
+    </p>
     <h3>2.3. Common Source Amplifier</h3>
     <p>
         Common Source Amplifier Parameters:
@@ -365,10 +385,159 @@
         vds problem starts to rise here when we put finite resistance on the drain where it made
         the amplifier with very low gain and when we increase Rout we can't increase it than ro=23.523Kohms
      </p>
-     <h2>3. Cascode Amplifier</h2>
-     <p>
-
-     </p>
+  <h4>2.3.3. case 3: using finite drain & source resistance</h4>
+    <figure>
+        <center><img src="images/basicamplifierstages/csfinitedrainsourceresistance.png"/></center>
+        <caption><em>Credits: prof. Hesham Omran</em></caption>
+    </figure>
+    <h5>Transconductance</h5>  
+    <p>
+        first to calculate transconductance as we said before we will use norton method when we make vout=0(short circuit)
+        as in above figure and calculate iout,sc where now RD will disappear from our calculation because it is parallel with
+        a short circuit and the current will be equivalent to the mosfet drain current where we can get mosfet drain current
+        as follow:
+        $${i_{out,shortcircuit}}={-{g_m}{v_{gs}}+{{v_s} \over {r_o}}}$$
+        $$and, {v_{gs}}={{v_g}-{v_s}}=v_{in}-v_s$$
+        $$then,{i_{out,sc}=-g_{m}{(v_{in}-v_s)}+{{v_s} \over {r_o}}}$$
+        $$and, {v_s}=-{{i_{out,shortcircuit}}Rs}$$
+        $$then, {i_{out,sc}}=-g_{m}{(v_{in}-(-{{i_{out,sc}}Rs}))+{-{{i_{out,sc}}Rs} \over {r_o}}}$$
+        $$then, {i_{out,sc}[1+{g_{m}R_s}+{{R_s} \over {r_o}}]}=-{g_m}{v_{in}}$$
+        $$then, transconductance=G_m={i_{out,sc} \over v_{in}}={-{g_m} \over {[1+{g_{m}R_s}+{{R_s} \over {r_o}}]}}$$
+    </p>
+    <h5>outputResistance</h5>  
+    <p>
+        to calculate Rout which is equivalent to thevenin resistance where we will close any independent sources and try
+        to use Rin/Rout shortcuts:
+        $$R_{LFD}=r_{o}[1+(g_{m}+g_{mb})]R_s$$
+        $$R_{out}={R_{LFD}||R_D}={{R_D}||{{r_o}[1+(g_m+g_{mb})R_s]}}$$
+    </p>
+    <p>
+        from above equations we could now determine voltage gain and current gain where:
+        $$Voltagegain: A_v={{G_m}{R_{out}}}$$
+        $$Currentgain: A_i={{G_m}R_{in}}$$
+    </p>
+    <h5>Output Resistance Cases</h5>
+    <p>
+        we could have three cases to for RD:
+        <ul>
+            <li>if RD is ac o.c.(currentsource): voltage_gain=-gm*ro</li>
+            <li>if RD <<<< RLFD: </li>
+        </ul>  
+    </p>
+    <h2>3. Cascode Amplifier</h2>
+        <h3>3.1. double stage cascode with ideal current source as load</h3>
+        <figure>
+            <center><img src="images/cascodeamplifier/simplecascodedivideandconquer.png"/></center>
+            <caption><em>Credits: prof. Hesham Omran</em></caption>
+        </figure>
+        <h4>3.1.1. Small Signal Analysis</h4>
+        <h5>3.1.1.1 TransConductance</h5>
+        <p>
+            schematic below shows a simple model of cascode amplifier which we will try to calculate its parameters
+            like before as follow(notice that we neglected ro of M1 and remember that common base acts like current buffer):
+            $$i_{out,sc}=-{g_{m1}}v_{in}$$
+            $$G_{mtotal}={i_{out,sc} \over v_{in}}=-g_{m1}$$
+            Same Gm of CommonSource amplifier
+        </p>
+        <p>
+            We can solve it also in another way by solving each stage independently like solving first CommonSource stage and try
+            to get inorton you will find it is equal to -gm1 and rout seen from source of M2 as follow:
+            $$i_{norton,Shortcircuit}=-g_{m1}v_{in}$$
+            $$Transconductance_{firstStage}=-g_{m1}$$
+            $$i_{norton,shortcircuit}=-g_{m1}v_{in}$$
+            $$Transconductance_{secondStage}=-g_{m1}$$
+        </p>
+        <h5>3.1.1.2. Output Resistance</h5>
+        <p>
+            $$R_{LFDofM1}=ro1$$
+            $$R_{LFDofM2}=r_{o2}[1+(g_{m2}+g_{mb2}R_{LFDofM1})]$$
+            $$R_{outtotal}= \infty(currentsource) ||R_{LFDofM2}=R_{LFDofM2}=r_{o2}{[1+(g_{m2}+g_{mb2}r_{o1})]} \sim ={(g_{m2}+g_{mb2})}{r_{o1}}{r_{o2}}$$
+            Rout is significantly boosted by that voltage gain is significantly boosted
+        </p>
+        <p>
+            Second Method:
+            $$R_{LFSofM2}={1 \over {g_m+g_{mb}}}*{(1+{R_D \over r_o})} where R_D= \infty ,so, R_{LFSofM2}=\infty$$
+            $$OutputResistance_{firststage}=R_{LFSofM2}||r_{o1}=r_{o1}$$
+            $$R_{LFDofM2}=r_{o2}[1+(g_{m}+g_{mb})]R_s$$ 
+            $$where,R_s=0,because, v_{x}=0(Thevenin condition),so,R_{LFDofM2} \sim =r_{o2}$$
+            $$OutputResistance_{secondstage}=\infty || R_{LFDofM2}=r_{o2}$$
+        </p>
+        <h5>3.1.1.3. Voltage Gain</h5>
+        <p>
+            First Method:
+            $$A_v =G_{mtotal} R_{outtotal} \sim = -{g_{m1}(g_{m1}+g_{mb2})r_{o1}r_{o2}}$$
+            by assuming all gm and ro are equal and neglecting body effect we can get:
+            $$A_v=-(g_m r_o)^2$$
+        </p>
+        <p>
+            Second Method:
+            $$VoltageGain_{M1}=A_{v1}=G_{m1}*R_{outofm1}=-g{m1}*r{o1}$$
+            $$VoltageGain_{M2}=A_{v2}=G_{m2}*R_{outofm2}=-g{m1}*r{o2}$$
+            $$TotalVoltageGain={v{out} \over v_{in}}={v{out} \over v_{x}}*{v{x} \over v_{in}}=A_{v1}*A_{v2}=-(g_m r_o)^2$$
+        </p>
+        <h4>3.2. Large Signal Analysis</h4>
+        <p>
+            how Vbias affects the circuit and what do I need from it? first I use it to keep M1 in sat and 
+            to keep M1 in sat we need Vds1>Vgs1-Vth1 where the worst case is at the largest value of Vgs because this case will
+            put limits on V<sub>B</sub> to keep M1 in sat so:
+            $$V_B>V_{GS2}+V_{DS1,max},Where, V_{DS1,max}={V_{overdrive,max}=V_{in,max}-V_{Th1}}$$
+            $$Then, V_B>V_{GS2}+(V_{in,max}-V_{Th1}) $$
+            second thing I need from V<sub>B</sub> is to keep also M2 in sat where:
+            $$to keep M2 in sat: V_{DS2}>V_{GS2}-V_{TH2},by removing S_2 from both sides then V_{D2}>V_{G2}-V_{Th2}$$ 
+            $$where, V_{G2}=V_B, and, V_{D2}=V_{out}, then, V_{out}>{V_B-V{Th2}}$$
+            $$then, V_B < {V_{out,min}-V_{Th2}}$$
+            where V<sub>out,min</sub> is the minimum voltage required to keep M1,M2 sat which is equal to 2V<sub>overdrive</sub>
+            by combining our derived limits we get:
+            $$V_{GS2}+(V_{in,max}-V_{Th1}) < V_B < {V_{out,min}-V_{Th2}}$$ 
+            which means that limits on output range is oppositely coupled with input range as condition of V<sub>out,min</sub>
+            must be larger than V<sub>in,max</sub> + V<sub>GS2</sub> for same threshold voltage in order to specify an amount for
+            V<sub>B</sub> if this doesn't happen we will either hurt input or output range
+        </p>
+        <h3>3.2. double stage cascode with finite resistance R<sub>D</sub> as load</h3>
+        <figure>
+            <center><img src="images/cascodeamplifier/bwextensioncascode.png"/></center>
+            <caption><em>Credits: prof. Hesham Omran</em></caption>
+        </figure>
+        <p>
+            when we use finite Resistance R<sub>D</sub> by that we remove the effect of boosting R<sub>out</sub> so what
+            do I got benefitted from using cascoded transistors in this case we are increasing voltage gain but it will 
+            affect the bandwidth of the circuit which we will discuss later on
+        </p>
+        <h3>3.3. double stage cascode with active cascode load</h3>
+        <figure>
+            <center><img src="images/cascodeamplifier/simplecascodewithactiveload.png"/></center>
+            <caption><em>Credits: prof. Hesham Omran</em></caption>
+        </figure>
+        <h4>3.3.1. Small Signal Analysis</h4>
+        <p>
+            If we want to keep the large R<sub>out</sub>, we must use cascode load why not a current source because
+            in real life there is nothing called ideal current source but we create current source using transistors 
+            and why not using single stage because output resistance of the load will be small compared to o/p resistance
+            of the driving cascode so it will act like previous case of using finite R<sub>D</sub><br/>
+            assuming all g<sub>m</sub> and r<sub>o</sub> are equal and neglecting body effect we can get:<br/>
+            $$A_v=-{(g_m r_o)^2 \over 2}$$ we divided by two because R<sub>out</sub> seen from the load in this case is 
+            equal to R<sub>out</sub> seen from the driver in this case so total R<sub>out</sub> is equivalent to parallelism
+            of them
+        </p>
+        <h4>3.3.2. Large Signal Analysis</h4>
+        <p>
+            We are concerned about it now because we are now talking about a circuit that 
+            can be implemented in real life so we are concerned about biasing the circuit correctly, we now that 
+            for every transistor its drain-source voltage must be greater than overdrive voltage so:
+            $$ V_{DSM4}+V_{DSM3}=V_{DD}-V_{SM4}+V_{SM4}-V_{out}=V_{DD}-V{out}>2*V_{ov}$$
+            $$then, V_{out} <{ 2*V_{ov} }$$
+            to make M3 & M4 stays in sat region(upper limit)<br/>
+            and also:
+            $$ V_{DSM1}+V_{DSM2}=(V_{out}-V_{SM1})+(V_{SM1}-0)=V_{out}>2V_{ov}$$
+            to make M1 & M2 stays in sat region(lower limit)<br/>
+            and you can remember also the other parameters in large signal analysis by returning in index or you can
+            continue with me we are now concerned with output swing. which we can calculate from upper, lower limits
+            where outputswing=upperlimit-lowerlimit= V<sub>DD</sub>-4V<sub>ov</sub> which is demonstrated in figure below:
+        </p>
+        <figure>
+            <center><img src="images/cascodeamplifier/simplecascodewithactiveloadoutputswing.png"/></center>
+            <caption><em>Credits: prof. Hesham Omran</em></caption>
+        </figure>
 </section>
 <footer>
     <p><small>Hosted on <a href="https://www.github.com/hishamelreedy/">GitHub Pages</a> by HishamElreedy</small></p>
