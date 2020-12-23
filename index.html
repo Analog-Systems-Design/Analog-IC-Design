@@ -15,11 +15,11 @@
         <h1 class="header">AnalogDesign</h1>
         <p class="header">Experimenting and Explaining Analog_IC_Design</p>
         <ul>
-            <li class="download"><a class="buttons" href="#">Learn_more</a></li>
+            <li class="download"><a class="buttons" href="https://github.com/hishamelreedy/analogicdesign">SimulationFiles</a></li>
             <li><a class="buttons github" href="https://github.com/hishamelreedy/analogicdesign">View On GitHub</a></li>
         </ul>
           <p class="header">This project is maintained by <a class="header name" href="https://github.com/hishamelreedy/">HishamElreedy</a></p>
-          <p class="header"> اللهم لا علم لنا الأ ما علمتنا به انك انت علام الغيوب</p>
+          <p class="header"><blockquote>اللهم لا علم لنا الأ ما علمتنا به انك انت علام الغيوب</blockquote></p>
 
         </header>
     <section>
@@ -175,8 +175,54 @@
     </figure>
     <h4>2.1.5. Rin/Rout Shortcuts</h4>
     <p>
-        
+        We can simplify the way we use when when we try to find input resistance and output resistance
+        of the amplifier, like as follow in figure below we can focus on three parts: 
     </p>
+    <ul>
+        <li>R_LFS: Resistance when looking from source</li>
+        <li>R_LFD: Resistance when looking from drain</li>
+        <li>Gate_resistance: is always very large so we doesn't care about calculating it</li>
+    </ul>
+    <p>
+        as in figure below: 
+    </p>
+    <figure>
+        <center><img src="images/basicamplifierstages/equivalentresistance.png"/></center>
+        <caption><em>Credits: Prof. Hisham Omran</em></caption>
+    </figure>
+    <h5>2.1.5.1. Resistance Looking From Drain</h5>
+    <p>
+       The eye determines the that I want to see output resistance infront of the red vertical line opposite
+       to it, we will find in this case the gate is grounded which means that vgs is only controlled by 
+       the voltage drop resistance Rs==>Vgs=-Ix*Rs and we can also neglect body effect as Vgs=Vbs because gate is grounded
+       so we can add gm & gmb to each other while calculating but keep in mind that they are of different 
+       values. always try to solve as much as possible on the drawing instead of writting many equations,<br/>
+       after all these simplifications we have now only one equation left which is KCL @ node D<br/>
+       which is: ix = (gm+gmb)*(-ixRs)+((Vx-Ix*RS)/ro) which can get from it easily Vx/Ix which corresponds to 
+       the value of resistance looking from drain we can neglect Rs comparing to gm*ro<br/>
+       we can only put gmb=0 when Rs=0 where we will not have body effect
+    </p>
+    <figure>
+        <center><img src="images/basicamplifierstages/resistancelookingfromdrain.png"/></center>
+        <caption><em>Credits: Prof. Hisham Omran</em></caption>
+    </figure>
+    <p>
+       We can say by this derivation that drain is acting like a high impedance node and to summarize we get
+       the following equation in figure and its special Case 
+    </p>
+    <figure>
+        <center><img src="images/basicamplifierstages/resistancelookingfromdrain2.png"/></center>
+        <caption><em>Credits: Prof. Hisham Omran</em></caption>
+    </figure>
+    <h5>2.1.5.2. Resistance Looking From Source</h5>
+    <p>
+        when looking from source we have same condition on gate where Vbs=Vgs & delta_Id=gm*delta_Vgs but the voltage on source node will differ because we replaced rs with
+        a voltage source of value Vx and of current Ix which is injected to mosfet so Vgs=Vg-Vs=0-Vx=-Vx and then 
+    </p>
+    <figure>
+        <center><img src="images/basicamplifierstages/resistancelookingfromsource.png"/></center>
+        <caption><em>Credits: Prof. Hisham Omran</em></caption>
+    </figure>
     <h3>2.2. Common Source Amplifier</h3>
     <p>
         Common Source Amplifier Parameters:
