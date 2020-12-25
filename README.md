@@ -1,5 +1,5 @@
-# AnalogICDesign
-Experimenting all Theoretical Explanations in MasterMicroElectronics Analog IC Design Course on Cadence Virtuoso
+# AnalogDesign
+Experimenting and Learning Analog Design
 
 <h1>Reference</h1>
 <ol>
