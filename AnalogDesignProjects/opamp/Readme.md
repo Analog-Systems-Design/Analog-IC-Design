@@ -1,8 +1,8 @@
 <h1>Folded Cascode Operational Amplifier</h1>
 <figure>
     <center><img src="images/problemdefinition.png"/></center>
-    <center><figcaption>Folded Cascode Operational Amplifier</figcaption></center>
-    <center><em><figcaption>Credits: Prof. Ahmed Nader</figcaption></em></center>
+    <center><caption>Folded Cascode Operational Amplifier</caption></center>
+    <center><em><caption>Credits: Prof. Ahmed Nader</caption></em></center>
 </figure>
 
 <h2><u>1. Specifications or Problem Definition</u></h2>
