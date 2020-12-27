@@ -1,4 +1,4 @@
-# AnalogDesign
+# Analog-IC-Design
 Experimenting and Learning Analog Design https://hishamelreedy.github.io/AnalogDesign/
 
 <h1>Reference</h1>
