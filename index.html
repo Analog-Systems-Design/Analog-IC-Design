@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>AnalogDesign</title>
+    <title>Analog-IC-Design</title>
     <link href="https://fonts.googleapis.com/css?family=Voces" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/common.css"/>
     <link rel="stylesheet" href="css/style.css"/>
@@ -425,7 +425,7 @@
         </ul>  
     </p>
     <h2>3. Cascode Amplifier</h2>
-        <h3>3.1. double stage cascode with ideal current source as load</h3>
+        <h3>3.1. double stage telescopic cascode with ideal current source as load</h3>
         <figure>
             <center><img src="images/cascodeamplifier/simplecascodedivideandconquer.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
@@ -493,7 +493,7 @@
             must be larger than V<sub>in,max</sub> + V<sub>GS2</sub> for same threshold voltage in order to specify an amount for
             V<sub>B</sub> if this doesn't happen we will either hurt input or output range
         </p>
-        <h3>3.2. double stage cascode with finite resistance R<sub>D</sub> as load</h3>
+        <h3>3.2. double stage telescopic cascode with finite resistance R<sub>D</sub> as load</h3>
         <figure>
             <center><img src="images/cascodeamplifier/bwextensioncascode.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
@@ -503,7 +503,7 @@
             do I got benefitted from using cascoded transistors in this case we are increasing voltage gain but it will 
             affect the bandwidth of the circuit which we will discuss later on
         </p>
-        <h3>3.3. double stage cascode with active cascode load</h3>
+        <h3>3.3. double stage telescopic cascode with active cascode load</h3>
         <figure>
             <center><img src="images/cascodeamplifier/simplecascodewithactiveload.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
@@ -537,7 +537,25 @@
         <figure>
             <center><img src="images/cascodeamplifier/simplecascodewithactiveloadoutputswing.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
-        </figure>
+        </figure>        
+        <h3>3.3. double stage Folded cascode with ideal current source as load</h3>
+        <figure>
+            <center><img src="images/cascodeamplifier/telescopiccascode.png"/></center>
+            <caption><em>Credits: prof. Hesham Omran</em></caption>
+        </figure>  
+        <p>
+            The difference between folded cascode and telescopic cascode is that in telescopic to increase stages, we increase
+            the number of common gate stages that we add above common source where in folded cascode common source stage
+            is coupled with a current source and a second common gate stage where current is divided among them, but Ib1
+            biases common-source stage and common-gate stage so we now have two branches which means double the power consumption
+            but here source resistance of M2 is a parallel combination between output resistance of IB1 and output resistance of M1
+            $$R_s={r_o \over 2}$$ which means lower Rout then lower gain
+            $$V_{in,min}>-|V_{TH1}| + V_B - V_{GS2}$$
+            $$V_{out,min}>{V_B - V_{TH2}}$$
+            Mostly when we bias transistors we don't bias it at edge of saturation but a little deeper which help me increase ro and by
+            that increase intrinsic gain and help to achieve an amplifier with a perfect Performance
+        </p>
+
 </section>
 <footer>
     <p><small>Hosted on <a href="https://www.github.com/hishamelreedy/">GitHub Pages</a> by HishamElreedy</small></p>
