@@ -18,8 +18,8 @@
         <h1 class="header">AnalogDesign</h1>
         <p class="header">Experimenting and Explaining Analog_IC_Design</p>
         <ul>
-            <li class="download"><a class="buttons" href="https://github.com/hishamelreedy/analogicdesign">SimulationFiles</a></li>
-            <li><a class="buttons github" href="https://github.com/hishamelreedy/analogicdesign">View On GitHub</a></li>
+            <li id="link" class="download"><a class="buttons" href="index.html">MainPage</a></li>
+            <li id="link"><a class="buttons github" href="projects.html">Projects</a></li>
         </ul>
             <p class="header">Feel free to contact me if you don't understand anything</p>
           <p class="header">This project is maintained by <a class="header name" href="https://github.com/hishamelreedy/">HishamElreedy</a></p>
@@ -538,7 +538,7 @@
             <center><img src="images/cascodeamplifier/simplecascodewithactiveloadoutputswing.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>        
-        <h3>3.3. double stage Folded cascode with ideal current source as load</h3>
+        <h3>3.4. double stage Folded cascode with ideal current source as load</h3>
         <figure>
             <center><img src="images/cascodeamplifier/telescopiccascode.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
@@ -549,13 +549,15 @@
             is coupled with a current source and a second common gate stage where current is divided among them, but Ib1
             biases common-source stage and common-gate stage so we now have two branches which means double the power consumption
             but here source resistance of M2 is a parallel combination between output resistance of IB1 and output resistance of M1
-            $$R_s={r_o \over 2}$$ which means lower Rout then lower gain
+            $$R_{lookingfromSourceofM2}={r_o \over 2}$$ which means lower Rout then lower gain
             $$V_{in,min}>-|V_{TH1}| + V_B - V_{GS2}$$
             $$V_{out,min}>{V_B - V_{TH2}}$$
             Mostly when we bias transistors we don't bias it at edge of saturation but a little deeper which help me increase ro and by
-            that increase intrinsic gain and help to achieve an amplifier with a perfect Performance
+            that increase intrinsic gain and help to achieve an amplifier with a perfect Performance, 
         </p>
-
+        <h3>3.5. Super Cascode</h3>
+        <h2>4. Frequency Response</h2>
+        
 </section>
 <footer>
     <p><small>Hosted on <a href="https://www.github.com/hishamelreedy/">GitHub Pages</a> by HishamElreedy</small></p>

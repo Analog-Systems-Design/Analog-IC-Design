@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Analog-IC-Design</title>
+    <link href="https://fonts.googleapis.com/css?family=Voces" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <script src="js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <SCRIPT SRC='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></SCRIPT>
+    <SCRIPT>MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}})</SCRIPT>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="toc"></div>    
+    <header id="headtoc">
+        <h1 class="header">AnalogDesign</h1>
+        <p class="header">Experimenting and Explaining Analog_IC_Design</p>
+        <ul>
+            <li id="link" class="download"><a class="buttons" href="index.html">MainPage</a></li>
+            <li id="link"><a class="buttons github" href="projects.html">Projects</a></li>
+        </ul>
+            <p class="header">Feel free to contact me if you don't understand anything</p>
+          <p class="header">This project is maintained by <a class="header name" href="https://github.com/hishamelreedy/">HishamElreedy</a></p>
+          <p class="header"><blockquote>اللهم لا علم لنا الأ ما علمتنا به انك انت علام الغيوب</blockquote></p>
+
+        </header>
+    <section>
+    <h1>Introduction</h1>
+    <h2>Folded Cascode Operational Amplifier for non-Inverting Use</h2>
+    <figure>
+        <img src="images/foldedcascodeopamp.png"/>
+        <figcaption>Operational Amplifier Model</figcaption>
+    </figure>
+    <h3>New Solution(Gm over Id)</h3>
+    <h4>Requirement 1</h4>
+    <p>Write a SPICE subcircuit that describes an op-amp with an open-loop gain of 1e4
+        and a UGF of 10MHz. Use comments generously to describe every line of the netlist.
+        Report the SPICE subcircuit and explain how you chose the circuit parameters.</p>
+
+
+    <h2>Folded Cascode Operational Amplifier for Buffer Use</h2>   
+    <figure>
+        <img src="images/foldedcascodeopamp.png"/>
+        <figcaption>Operational Amplifier Model</figcaption>
+    </figure>
+    <h3>specifications</h3>
+    <ul>
+        <li>\(V_{DD}=3.3V\)</li>
+        <li>\(V_{in,CM}={V_{DD} \over 2}=1.65V\)</li>
+        <li>\(A_{DC}>55dB\)(DC differential gain)</li>
+        <li>\(GBW>100MHz\)</li>
+        <li>\(SlewRate>100V/ \mu sec\)</li>
+        <li>\(Output Swing>1.5V_{PP}\)</li>
+        <li>\(Input \space referred \space thermal \space noise \space density < 10nV/\sqrt{Hz}\)</li>
+        <li>\(Phase Margin > 60^o\)</li>
+        <li>\(Minimize \space Power \space Consumption\)</li>
+    </ul>
+    <h3>Old Solution(trial and error)</h3>
+    <div class="solution">
+    <h4>Large Signal Analysis</h4>
+    <div class="solution"> 
+    <h5>Specs & Given</h5>
+    <ul>
+        <li>\(O/P Swing = 1.5V_{pp}\)</li>
+        <li>\(Vth_{n,p} ~=650mV\)</li>
+        <li>\(V_{DS}=V_{ov}+100mV\)</li>
+        <li>\(V_{DD}=3.3V\)</li>
+    </ul>
+</div>
+<div class="solution">
+    <h5>Solution Steps</h5>
+    <ol>
+        <li>Determine Overdrive Voltage</li>
+        $$[{({V_{out,min}>(V_{th}+V_{ov})}) \cap {(V_{out,min}>2V_{ov})}} ]= [V_{out,min}>{V_{th}+V_{ov}}]$$
+        $$V_{out,max}<{V_{DD}-2V_{ov}}$$
+        $$Output \space Swing= {V_{out,max} - V_{out,min}}=V_{DD}-3V_{ov}-V_{th}>1.5V_{pp}$$
+        $$choose \space V_{ov}=0.3V$$
+        <li>Determine Vb1 from overdrive voltage and \(V_{DS}=V_{ov}+100mV\)</li>
+        $$V_{DD}-V_{b1}=V_{eff}+V_{th}+0.1$$
+        $$V_{b1}=2.25V$$
+        <li>Determine Vb2 from Vb1, overdrive voltage and \(V_{DS}=V_{ov}+100mV\)</li>
+        $$2V_{th}+V_{ov}>V_{b3}>V_{th}+2*V_{ov}$$
+        $$for \space best \space swing \space choose \space V_{b3,min} = V_{th}+2*V_{ov}+0.01=1.26V$$
+        <li>Determine bias voltage for M0</li>
+        $${805mV}<{V_g \space of \space M_o}<{850mV}$$
+        if we choose max we will have max GBW and smallest phase margin and if we take min opposite will occur so it is better
+        to choose value in between like 830mV
+    </ol>
+    </div>
+</div>
+<div class="solution"> 
+    <h4>Small Signal Analysis</h4>
+<div class="solution"> 
+<h5>Model Parameter Extraction neglecting short channel effects</h5>
+<ul>
+    <li>\(K_n:16\mu A/V^2\)</li>
+    <li>\(Vth_{n} ~=620mV\)</li>
+    <li>\(K_p:6\mu A/V^2\)</li>
+    <li>\(Vth_{p} ~=630mV\)</li>
+    <li>\(L=1\mu m\)(Large L Bad merits of using this solution)</li>
+</ul>
+<h5>Extracting Small Signal Parameters</h5>
+<ul>
+    <li>\(SlewRate>100V/ \mu sec\) ===> \({g_{m_{1,2}}} = 1.294 mA/V\)</li>
+    <li>\(GBW>100MHz\) ===> \({g_{m_{3,4}}}={g_{m_{5,6}}}= 1.294 mA/V\)</li>
+</ul>
+</div>
+<div class="solution">
+    <table>
+        <tr>
+            <td>$$M_i$$</td>
+            <td>$$Vg$$</td>
+            <td>$$W/L$$</td>
+            <td>$$Type$$</td>
+            <td>$$M_i$$</td>
+            <td>$$Vg$$</td>
+            <td>$$W/L$$</td>
+            <td>$$Type$$</td>
+        </tr>
+        <tr>
+            <td>$$M_0$$</td>
+            <td>$$830mV$$</td>
+            <td>$$80.25$$</td>
+            <td>$$NMOS$$</td>
+            <td>$$M_{5,6}$$</td>
+            <td>$$1.26V$$</td>
+            <td>$$39.75$$</td>
+            <td>$$NMOS$$</td>
+        </tr>
+        <tr>
+            <td>$$M_{1,2}$$</td>
+            <td>$$1.65V$$</td>
+            <td>$$68.1$$</td>
+            <td>$$NMOS$$</td>
+            <td>$$M_{7,8}$$</td>
+            <td>$$1.85V$$</td>
+            <td>$$39.75*2$$</td>
+            <td>$$PMOS$$</td>
+        </tr>
+        <tr>
+            <td>$$M_{3,4}$$</td>
+            <td>$$830mV$$</td>
+            <td>$$80.25$$</td>
+            <td>$$NMOS$$</td>
+            <td>$$M_{9,10}$$</td>
+            <td>$$2.25V$$</td>
+            <td>$$39.75*2$$</td>
+            <td>$$PMOS$$</td>
+        </tr>
+    </table>
+</div>
+</div>
+    </section>
+<footer>
+    <p><small>Hosted on <a href="https://www.github.com/hishamelreedy/">GitHub Pages</a> by HishamElreedy</small></p>
+</footer>
+</div>
+    <script src="js/common.js"></script>
+    <script>$('#toc').toc();</script>
+</body>
+</html>
