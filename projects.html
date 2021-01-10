@@ -33,6 +33,10 @@
         <img src="images/foldedcascodeopamp.png"/>
         <figcaption>Operational Amplifier Model</figcaption>
     </figure>
+    <figure>
+        <img src="images/invertingampop.png"/>
+        <figcaption>Inverting Amplifier</figcaption>
+    </figure>
     <h3>New Solution(Gm over Id)</h3>
     <h4>Requirement 1</h4>
     <p>Write a SPICE subcircuit that describes an op-amp with an open-loop gain of 1e4
@@ -44,6 +48,10 @@
     <figure>
         <img src="images/foldedcascodeopamp.png"/>
         <figcaption>Operational Amplifier Model</figcaption>
+    </figure>
+    <figure>
+        <img src="images/bufferop.png" width="312px" height="150px"/>
+        <figcaption>Buffer</figcaption>
     </figure>
     <h3>specifications</h3>
     <ul>
@@ -152,7 +160,368 @@
     </table>
 </div>
 </div>
-    </section>
+<h4>Simulations</h4>
+<div class="solution">
+    <div class="solution">    
+<h5>Print DC operating Point</h5>
+<figure>
+    <img src="images/nmosoppoint.png"/>
+    <figcaption>NMOS Operating Point</figcaption>
+</figure>
+<figure>
+    <img src="images/pmosoppoint.png"/>
+    <figcaption>PMOS Operating Point</figcaption>
+</figure>
+</div>
+<div class="solution">
+<h5>Frequency Response to check DC gain and GBW</h5>
+<figure>
+    <img src="images/gainandphasevsfrequency.png"/>
+    <figcaption>PMOS Operating Point</figcaption>
+</figure>
+<p>Gain-Bandwidth product is about 125MHz>100MHz and Phase margin=180-115=65>60 degrees and DC-Gain=68.65dB>50dB</p>
+</div>
+<div class="solution">
+    <h5>Common Mode Rejection Ratio(CMRR)</h5>
+    <figure>
+        <img src="images/cmrr.png"/>
+        <figcaption>Common Mode Rejection Ratio</figcaption>
+    </figure>
+    <p>Common Mode Rejection Ratio is about 113 dB which is very high and make opamp act with very good efficiency in rejecting noise</p>    
+
+</div>
+<div class="solution">
+    <h5>Power Supply Rejection Ratio(CMRR)</h5>
+    <figure>
+        <img src="images/psrr.png"/>
+        <figcaption>Power Supply Rejection Ratio</figcaption>
+    </figure>
+    <p>Power supply rejection ratio is very high about 110 dB which means the high capability of this opamp to reject
+        supply voltage variations</p>    
+</div>
+<div class="solution">
+    <h5>STB Gain and Phase Versus Frequency</h5>
+    <figure>
+        <img src="images/iprobe.png"/>
+        <figcaption>unity feedback (Buffer) configuration</figcaption>
+    </figure>
+    <figure>
+        <img src="images/stbgainandphase.png"/>
+        <figcaption>stability</figcaption>
+    </figure>
+    <p>Gain-Bandwidth product is 113.7 MHz and DC-gain=74.35dB</p>    
+</div>
+<div class="solution">
+    <h5>STB Gain and Phase Versus Frequency</h5>
+    <figure>
+        <img src="images/iprobe.png"/>
+        <figcaption>transferfunction configuration</figcaption>
+    </figure>
+    <figure>
+        <img src="images/stbgainandphase.png"/>
+        <figcaption>stability</figcaption>
+    </figure>
+    <p>Gain-Bandwidth product is 113.7 MHz and DC-gain=74.35dB</p>
+</div>
+<div class="solution">
+    <h5>Plot the DC-gain versus Vout (report when DC-gain drops by 10dB to verify specifications)</h5>
+    <figure>
+        <img src="images/opswing.png"/>
+        <figcaption>output swing</figcaption>
+    </figure>
+    <p>Output Swing is of value = 1.54Vpp > 1.5Vpp</p>
+</div>
+<div class="solution">
+    <h5>Closed Loop Frequency Response</h5>
+    <p>Plot the closed-loop (CL) frequency response. What is ACL and BWCL</p>
+    <figure>
+        <img src="images/closedloopfreqresponse.png"/>
+        <figcaption>Frequency Response</figcaption>
+    </figure>
+    <p>Bandwidth is extended to 181.8 MHz and DC gain remains -1.503 mdb (Buffer since it ‘s very near to 0)</p>
+</div>
+<div class="solution">
+    <h5>Input referred noise</h5>
+    <p>Simulate input-referred noise and tabulate top 4 contributors @10MHz</p>
+    <figure>
+        <img src="images/inputreferrednoise.png"/>
+        <figcaption>Input referred noise</figcaption>
+    </figure>
+    <p>Total input referred noise is of value 6.1 nV/ sqrt(Hz) < 10nV/sqrt(Hz)</p>
+</div>
+<div class="solution">
+What is the difference between those results and previous open-loop AC results?<br/>
+Using Probe sees another capacitance when measuring at input port of the opamp
+</div>
+<div class="solution">
+    <h5>slew rate</h5>
+    <figure>
+        <img src="images/slewrate.png"/>
+        <figcaption>slewrate</figcaption>
+    </figure>
+    <p>Slew rate is 102v/usec. > 100v/usec</p>
+</div>
+<div class="solution">
+    <h5>DFT and Harmonic Distortion</h5>
+    <p>
+        Apply a sine input signal of 1Vpp @10MHz and plot Vout (add proper input DC
+        value). Plot DFT (in dB) and calculate harmonic distortion HD2, HD3, and THD
+        (comment).        
+    </p>
+    <figure>
+        <img src="images/transdft.png"/>
+        <figcaption>transient</figcaption>
+    </figure>
+    <figure>
+        <img src="images/dft.png"/>
+        <figcaption>DFT</figcaption>
+    </figure>
+    <p>AT 10 MHZ, The harmonic distortion=-6 db is clearly high since the source is excited at 10
+        MHz. 𝐻𝐷2 = −60.36 + 6.07 = −54.29 𝑑𝑏,𝐻𝐷3 = −61.4 + 6.07 = −55.33 𝑑𝑏.THD is calculated as percentage,so THD =372E-3 % ,which means the harmonic distortion is very
+        small nearly negligible</p>
+</div>
+<div class="solution">
+    <h5>Fractional Gain error</h5>
+    <p>Plot Vout for a small step input of 100mV (add proper input DC value). Calculate the
+        fractional gain error (FGE) and 1% settling time (compare with hand analysis).</p>
+    <figure>
+        <img src="images/settlingtime.png"/>
+        <figcaption>settlingtime</figcaption>
+    </figure>
+    <p>Comment:
+        -from the previous :Ts=502.5-500=2.5msec.
+        -To calculate it analytically:𝑇𝑠 = 4/(𝑘𝐺𝐵𝑊), since GBW=2*pi*181.8 MHz as it ‘s shown in
+        ClosedLoop frequency response so Ts=3.5 ns.</p>
+        <figure>
+            <img src="images/final.png"/>
+            <figcaption>ripple</figcaption>
+        </figure>
+        <p>
+    Comment:
+        We can note that the analytical value is very different to the practical value and that’s because PM is
+       not very big nearly 66 deg. and that causes ringing as shown in the previous figure , so this suggests
+       that the system is not underdamped and that’s why this equation 𝑇𝑠 = 4/(𝑘𝐺𝐵𝑊) doesn’t hold.
+       -Calculating FGE:
+       from the closed loop frequency response 𝐴𝑐𝑙 = 0.9998 = −1.503 𝑚𝑑𝑏
+       so 𝐹𝐺𝐸 = |𝑖𝑑𝑒𝑎𝑙 𝑔𝑎𝑖𝑛 − 𝑎𝑐𝑡𝑢𝑎𝑙 𝑔𝑎𝑖𝑛|/𝑖𝑑𝑒𝑎𝑙 𝑔𝑎𝑖𝑛 = 1 − 0.9998/1 = 200𝐸 − 6.
+       Analytically: 𝐹𝐺𝐸 = 1/𝑘𝐴𝑜, since loop gain in buffer=74.34 db, so FGE=192E-6.
+       So as shown the two values practical and analytical are comparable.</p>
+</div>
+
+</div>
+<h4>Spice Model</h4>
+<div class="solution">
+    <h5>Opamp Symbol</h5>
+<pre>
+<code>
+<table>
+<tr>
+    <td><center>Code</center></td>
+    <td><center>Schematic</center></td>
+</tr>
+<tr>
+<td>
+<p>
+***Non-Ideal Opamp
+.subckt nonideal_opamp  Vout V1 V2
+* Connections           |    |  |
+*                  output    |  |
+*                    +ve input  |
+*                       -ve input
+
+**Circuit Description
+*Open-loop gain: 1e4
+*Unity-Gain-Bandwidth: 10MHz
+
+**Biasing Elements
+vsupply VDD 0 DC 5V
+biaszero Vb0 0 DC 0.83V
+biasone Vb1 0 DC 1.65V
+biastwo Vb2 0 DC 1.85V
+biasthree Vb3 0 DC 1.26V
+
+**Circuit Elements
+M0 D0 Vb0 0 0 CMOSN L=1u W=80.25u
+
+M1 D1 V1 D0 0 CMOSN L=1u W=68.1u
+M2 D2 V2 D0 0 CMOSN L=1u W=68.1u
+
+M3 D3 Vout 0 0 CMOSN L=1u W=39.75u
+M4 D3 Vout 0 0 CMOSN L=1u W=39.75u
+
+M5 Vout Vb3 D3 0 CMOSN L=1u W=39.75u
+M6 Vout Vb3 D4 0 CMOSN L=1u W=39.75u
+
+M7 Vout Vb2 D1 VDD CMOSP L=1u W=79.5u
+M8 Vout Vb2 D2 VDD CMOSP L=1u W=79.5u
+
+M9 D1 Vb1 VDD VDD CMOSP L=1u W=79.5u
+M10 D2 Vb1 VDD VDD CMOSP L=1u W=79.5u
+
+.ends nonideal_opamp
+</p>
+</td>
+<td>
+<figure>
+<img src="images/foldedcascodeopamp.png"width="300px" height="200px"/>
+<figcaption>Operational Amplifier</figcaption>
+</figure></td> 
+</tr>
+</table>
+</code>
+    </pre>
+
+    <h5>Inverting Amplifier</h5>
+    <pre>
+        <code>
+            <table>
+                <tr>
+                    <td>
+                        <center>Code</center>
+                    </td>
+                    <td>
+                        <center>Schematic</center>
+                    </td>
+                </tr>
+                <tr>
+<td>
+    <p>
+    *Inverting Amplifier
+
+    *signal sources
+    Vin 3 0 DC 1V
+
+    * Circuit elements
+    R1 3 2 1k
+    R2 2 1 9k
+    *C1 1 0 2pF
+
+    * Instantiating Ideal Opamp
+    Xop_A2 1 0 2 nonideal_opamp
+
+    * Analysis request
+    .TF V(1) Vin
+
+    * Output Request
+    .PROBE
+
+    .END
+    </p>
+</td>
+<td>
+<figure>
+    <img src="images/invertingampop.png"/>
+    <figcaption>Inverting Amplifier</figcaption>
+</figure>
+            </td>
+        </tr>
+        </table>
+        </code>
+    </pre>
+
+    <h5>TSMC 130 nm Model</h5>
+    <pre>
+        <code>
+            <table>
+                <tr>
+                    <td>
+                        <center>Code</center>
+                        </td>
+                </tr>
+                <tr>
+<td>
+    <p>
+        *T85T SPICE BSIM3 VERSION 3.1 PARAMETERS
+
+        *SPICE 3f5 Level 8, Star-HSPICE Level 49, UTMOST Level 8
+        
+        * DATE: Sep  3/08
+        * LOT: T85T                  WAF: 2005
+        * Temperature_parameters=Default
+        .MODEL CMOSN NMOS (                                LEVEL   = 49
+        +VERSION = 3.1            TNOM    = 27             TOX     = 3.1E-9
+        +XJ      = 1E-7           NCH     = 2.3549E17      VTH0    = 0.0485675
+        +K1      = 0.3634695      K2      = -0.0277136     K3      = 1E-3
+        +K3B     = 3.9409342      W0      = 1E-7           NLX     = 8.900764E-7
+        +DVT0W   = 0              DVT1W   = 0              DVT2W   = 0
+        +DVT0    = 1.2979753      DVT1    = 0.1605369      DVT2    = 0.2509178
+        +U0      = 436.2279588    UA      = -3.51975E-10   UB      = 3.216114E-18
+        +UC      = 4.919099E-10   VSAT    = 1.930256E5     A0      = 1.9922632
+        +AGS     = 0.7096599      B0      = 1.892162E-6    B1      = 5E-6
+        +KETA    = 0.05           A1      = 7.799989E-4    A2      = 0.3
+        +RDSW    = 150            PRWG    = 0.3506787      PRWB    = 0.1097886
+        +WR      = 1              WINT    = 7.71429E-9     LINT    = 1.039368E-8
+        +DWG     = 1.205322E-8    DWB     = 8.815731E-9    VOFF    = -0.0331648
+        +NFACTOR = 2.5            CIT     = 0              CDSC    = 2.4E-4
+        +CDSCD   = 0              CDSCB   = 0              ETA0    = 2.754257E-6
+        +ETAB    = -0.0108095     DSUB    = 4.0643E-6      PCLM    = 1.9769478
+        +PDIBLC1 = 0.9710894      PDIBLC2 = 0.01           PDIBLCB = 0.1
+        +DROUT   = 0.9993653      PSCBE1  = 7.973288E10    PSCBE2  = 5.02618E-10
+        +PVAG    = 0.536394       DELTA   = 0.01           RSH     = 6.7
+        +MOBMOD  = 1              PRT     = 0              UTE     = -1.5
+        +KT1     = -0.11          KT1L    = 0              KT2     = 0.022
+        +UA1     = 4.31E-9        UB1     = -7.61E-18      UC1     = -5.6E-11
+        +AT      = 3.3E4          WL      = 0              WLN     = 1
+        +WW      = 0              WWN     = 1              WWL     = 0
+        +LL      = 0              LLN     = 1              LW      = 0
+        +LWN     = 1              LWL     = 0              CAPMOD  = 2
+        +XPART   = 0.5            CGDO    = 3.74E-10       CGSO    = 3.74E-10
+        +CGBO    = 1E-12          CJ      = 9.581316E-4    PB      = 0.9759771
+        +MJ      = 0.404514       CJSW    = 1E-10          PBSW    = 0.8002028
+        +MJSW    = 0.6            CJSWG   = 3.3E-10        PBSWG   = 0.8002028
+        +MJSWG   = 0.6            CF      = 0              PVTH0   = 2.009264E-4
+        +PRDSW   = 0              PK2     = 1.30501E-3     WKETA   = 7.565815E-3
+        +LKETA   = 0.0327047      PU0     = 4.4729531      PUA     = 1.66833E-11
+        +PUB     = 0              PVSAT   = 653.2294237    PETA0   = 1E-4
+        +PKETA   = -0.0101124      )
+        *
+        .MODEL CMOSP PMOS (                                LEVEL   = 49
+        +VERSION = 3.1            TNOM    = 27             TOX     = 3.1E-9
+        +XJ      = 1E-7           NCH     = 4.1589E17      VTH0    = -0.2156906
+        +K1      = 0.2680989      K2      = 4.539197E-3    K3      = 0.097375
+        +K3B     = 6.5043674      W0      = 1E-6           NLX     = 2.836757E-7
+        +DVT0W   = 0              DVT1W   = 0              DVT2W   = 0
+        +DVT0    = 0              DVT1    = 1              DVT2    = 0.1
+        +U0      = 106.670318     UA      = 1.152986E-9    UB      = 2.377339E-21
+        +UC      = -1.93766E-11   VSAT    = 1.190739E5     A0      = 1.7356069
+        +AGS     = 0.6166218      B0      = 7.467707E-6    B1      = 4.992767E-6
+        +KETA    = 0.0157125      A1      = 8.723417E-3    A2      = 0.8713799
+        +RDSW    = 105            PRWG    = -0.5           PRWB    = 0.5
+        +WR      = 1              WINT    = 0              LINT    = 1.495916E-8
+        +DWG     = 6.058254E-9    DWB     = -1.83713E-8    VOFF    = -0.1022829
+        +NFACTOR = 1.5332272      CIT     = 0              CDSC    = 2.4E-4
+        +CDSCD   = 0              CDSCB   = 0              ETA0    = 0.0110506
+        +ETAB    = -2.941775E-3   DSUB    = 2.419246E-3    PCLM    = 0.2085802
+        +PDIBLC1 = 9.972716E-4    PDIBLC2 = -1.39497E-13   PDIBLCB = -1E-3
+        +DROUT   = 0.6860806      PSCBE1  = 1.849353E9     PSCBE2  = 5.675435E-10
+        +PVAG    = 0.0149584      DELTA   = 0.01           RSH     = 6.6
+        +MOBMOD  = 1              PRT     = 0              UTE     = -1.5
+        +KT1     = -0.11          KT1L    = 0              KT2     = 0.022
+        +UA1     = 4.31E-9        UB1     = -7.61E-18      UC1     = -5.6E-11
+        +AT      = 3.3E4          WL      = 0              WLN     = 1
+        +WW      = 0              WWN     = 1              WWL     = 0
+        +LL      = 0              LLN     = 1              LW      = 0
+        +LWN     = 1              LWL     = 0              CAPMOD  = 2
+        +XPART   = 0.5            CGDO    = 3.42E-10       CGSO    = 3.42E-10
+        +CGBO    = 1E-12          CJ      = 1.15643E-3     PB      = 0.8
+        +MJ      = 0.4399866      CJSW    = 1.133806E-10   PBSW    = 0.8
+        +MJSW    = 0.1146401      CJSWG   = 4.22E-10       PBSWG   = 0.8
+        +MJSWG   = 0.1146401      CF      = 0              PVTH0   = 1.282832E-3
+        +PRDSW   = 44.1361752     PK2     = 2.459655E-3    WKETA   = 0.0352131
+        +LKETA   = 0.0128331      PU0     = -1.2608844     PUA     = -4.27994E-11
+        +PUB     = 1.628153E-28   PVSAT   = -50            PETA0   = 7.039749E-5
+        +PKETA   = -5.052402E-3    )
+        
+    </p>
+</td>
+        </tr>
+        </table>
+        </code>
+    </pre>
+</div>
+
+
+</section>
 <footer>
     <p><small>Hosted on <a href="https://www.github.com/hishamelreedy/">GitHub Pages</a> by HishamElreedy</small></p>
 </footer>
