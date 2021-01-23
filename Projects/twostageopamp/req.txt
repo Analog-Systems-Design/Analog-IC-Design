@@ -1,0 +1,8 @@
+بحاول احل الcircuit دي 
+المفروض اجيب ال dimensions بتاعت ال transistors و كل ال parameters 
+Gm 
+ID 
+ICMR 
+Slew rate
+Output voltage swing
+و مش عندي غير ال givens دول ؟
