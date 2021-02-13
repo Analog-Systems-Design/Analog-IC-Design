@@ -8,11 +8,13 @@
     \begin{tikzpicture}
 \ctikzset{bipoles/length=1cm}
 \draw
-(0, 0) node[op amp] (opamp) {}
-(opamp.-) to[R,l_=$R_1$,-o] (-2, 0.35) -- (-3, 0.35) to [V=$v_1$] (-3,-0.5) to (-3,-0.5) node[ground]{}
-(opamp.-) to[short,*-] ++(0,0.5) coordinate (leftC)
-to[R=$R_2$] (leftC -| opamp.out)
-to[short,-*] (opamp.out) to [short,-o] (1.5,0) to (1.5,-0.5) node[ground]{}
-(opamp.+) -- (-1,-0.35) to (-1,-0.5) node[ground]{};
+(0, 0) node[op amp,yscale=-1] (opamp) {}
+(opamp.-) to[short,*-] ++(0,-0.5) coordinate (leftC)
+to[short,-] (leftC -| opamp.out)
+to[short,-*] (opamp.out)
+(1.5,0) node[nmos](mos){}
+(opamp.out)to (mos.base) 
+(mos.source)to (1.5,-0.5) node[ground]{}
+(mos.drain) node[anchor=south] {\textit{D}} to [short,-o](1.5,0.55) ;
     \end{tikzpicture}
 \end{document}

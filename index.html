@@ -8,8 +8,7 @@
     <script src="js/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <SCRIPT SRC='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></SCRIPT>
-    <SCRIPT>MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}})</SCRIPT>
+    <script id="MathJax-script" async src="mathjax/tex-chtml.js"></script>  
 </head>
 <body>
     <div class="wrapper">
@@ -27,20 +26,66 @@
 
         </header>
     <section>
-    <h1>Analog IC Design</h1>
-    <h2>1. Mosfet Large & Small Signal Model</h1>
+    <h1>0. Introduction</h1>
+    <figure>
+        <img src="images/analog_design_octagon.png"/>
+        <figcaption>Analog Design Parameters</figcaption>
+    </figure>
+    <h2>0.1. Kirchoff's Voltage Law (KVL)</h2>
+    The sum of all voltage drops around any closed loop is zero
+    $$\sum V = 0$$
+    $$-V_{DD}+I_DR_D+V_{DS}+I_DR_s=0$$
+    $$V_{DD}=I_D(R_D+R_S)+V_{DS}$$
+    <figure>
+        <img src="images/kvl.png"/>
+        <figcaption>Kirchoff's Voltage Law</figcaption>
+    </figure>
+    <h2>0.2. Kirchoff's Current Law</h2>
+    The sum of all currents flowing into a node is zero
+    $$\sum I = 0$$
+    $$I_1+I_2+I_3-I_4=0$$
+    <figure>
+        <img src="images/kcl.png"/>
+        <figcaption>Kirchoff's Current Law</figcaption>
+    </figure>
+    <h2>0.3. Resistor Combinations</h2>
+    Resistors in series: Largest resistor dominates
+    $$R_{eq}=R_1+R_2+R_3$$
+    <figure>
+        <img src="circuitdiagrams_tex/series_resistors.png"/>
+    </figure>
+    Resistors in parallel: Smallest resistor dominates
+    $${1 \over R_{eq}}={1\over R_1}+{1\over R_2}+{1\over R_3}$$
+    <figure>
+        <img src="circuitdiagrams_tex/parallel_resistors.png"/>
+    </figure>
+    <h2>0.4. Voltage and Current Dividers</h2>
+    Voltage Divider: The largest resistor takes most of the voltage
+    $$V_{out}=V_{DD}.{R_3 \over {R_1 + R_2 + R_3}}$$
+    <figure>
+        <img src="circuitdiagrams_tex/voltage_divider.png"/>
+    </figure>
+    Current Divider: The smallest resistor takes most of the current
+    $$I_{out}=I_{in}.{G_3 \over {G_1 + G_2 + G_3}}$$
+    <figure>
+        <img src="circuitdiagrams_tex/current_divider.png"/>
+    </figure>
+    <h2>0.5. Thevenin Equivalent Circuit</h2>
+    Any one port circuit can be replaced by a voltage source and a series impedance
+    $$V_{TH}=V_{O.C.}$$
+    <h1>1. Mosfet Large & Small Signal Model</h1>
     We neglected short channel effect  & large VDS effect by using large L=1um and small vds=250mV and we also neglected bodyeffect by grounding the source
-    <h3>1.1.Schematic</h3>
+    <h2>1.1.Schematic</h2>
     <figure>
         <center><img src="images/Mosfet_Tsmc_130nm.png"/></center>
         <figcaption>Tsmc_130nm_Schematic</figcaption>
     </figure>
-    <h3>1.2. ID-Vs-VDS</h3>
+    <h2>1.2. ID-Vs-VDS</h2>
     <figure>
         <center><img src="images/IdVsVDS.png" width="100%" height="100%"/></center>
         <caption>Id Vs Vds for Vgs=800mV</caption>
     </figure>
-    <h3>1.3. TransConductance</h3>
+    <h2>1.3. TransConductance</h2>
     <figure>
         <center><img src="images/transconductance1.png"/></center>
         <caption>Credits: Dr. Hesham Omran</caption>
@@ -53,18 +98,14 @@
         <center><img src="images/gmcalculation.png"/></center>
         <caption>ID vs VGS and marking our operating point VGS=800mV</caption>
     </figure>
-    <p>
     to calculate gm as our small signal was of 1mV amplitude 
     so X2=VGS+1mV, Y2=I(X2) and X1=VGS-1mV, Y1=I(X1) 
     and then gm=dI/dVGS = dY/dx = 5.1e-5 mhos
-    </p>
     <figure>
         <center><img src="images/transconductance2.png"/></center>
         <caption>Credits: prof. Hesham Omran</caption>
     </figure>
-    <p>
         Our output resistance upper bound is controlled by the value of ro so we can't increase rout than ro where we can find value of ro from simulation with name of gds where gds=1/ro like in figure below
-    </p>
     <figure>
         <center><img src="images/gainupperbound.png"/></center>
         <caption>gds=2.433e-S==>ro=23.523Kohms</caption>
@@ -74,68 +115,95 @@
         <caption>effect of increasing ro</caption>
         <caption><em>Credits: Prof. Hesham Omran</em></caption>
     </figure>
-    <p>
     so we cannot increase our Rout more than 23.523Kohms and also we cannot increase Vds very much to increase ro because this will lead to gate loses its control over the drain current
-    </p>
-    <p>
     We can model our work above by this model in figure below
-    </p>
     <figure>
     <center><img src="images/lowfreqsmallsignalmodel.png"/></center>
     <caption><em>Credits: Prof. Hesham Omran</em></caption>
     </figure>
-    <h3>1.4. Short Channel Effects</h3>
+    <h2>1.4. Short Channel Effects</h2>
     <figure>
     <center><img src="images/shortchanneleffects.png"/></center>
     <caption><em>Credits: Prof. Hesham Omran</em></caption>
     </figure>
-    <p>
     Short Channel effects changes the relation between Mosfet drain current and VGS as in case of long channel we use the famous quadratic equation where if we derive transconductance from this equation we find that it is linear which means that it increases with VGS.<br/>
     While in case of short channel the relation between mosfet drain current and VGS becomes linear which means that if we drive transconductance we will find that it is of constant value.
-    </p>
     <figure>
         <center><img src="images/shortchanneleffectsro.png"/></center>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
     </figure>
-    <p>
     short channel effect affects the value of ro where it increases very much in this case which leads to high gain but Vgs loses control
-    </p>
-    <h2>2. Basic Amplifier Stages</h2>
-    <p>
+    <h1>2. Single-Stage Amplifiers</h1>
     we have three basic amplifier toplogies which are:
     <ul>
     <li>Common Source(CS): which acts as Voltage and current amplifier if we inject the signal from the gate and probing on Drain. where source is <mark>common</mark> between Drain and Gate</li>
     <li>Common Gate(CG): which acts as Voltage amplifier and Current Buffer, Buffer means amplifier of gain=1</li>
     <li>Common Drain(CD) or Source Follower(SF)</li>
+    <li>Cascode</li>
     </ul>
+    which we organize in the categories below:
+    <table>
+        <tr>
+            <td>Common-Source Stage</td>
+            <td>Source Follower</td>
+            <td>Common-Gate Stage</td>
+            <td>Cascode</td>
+        </tr>
+        <tr>
+            <td>with Resistive Load</td>
+            <td>with Resistive Bias</td>
+            <td>with Resistive Load</td>
+            <td>Telescopic</td>
+        </tr>
+        <tr>
+            <td>with Diode-Connected Load</td>
+            <td>with Current-Source Bias</td>
+            <td>with Current-Source Load</td>
+            <td>Folded</td>
+        </tr>
+        <tr>
+            <td>with Current-Source Load</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>with Active Load</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>with Source Degeneration</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
     </p>
     <figure>
         <center><img src="images/basicamplifierstages/basicmosfetamplifiertopologies.png"/></center>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
     </figure>
-    <h3>2.1. Amplifier Analysis Steps</h3>
+    <h2>2.1. Amplifier Analysis Steps</h2>
     <figure>
         <center><img src="images/basicamplifierstages/amplifieranalysissteps.png"/></center>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
     </figure>
-    <p>
     <ol>
     <li>DC analysis: to calculate DC operating point to check operation of mosfet in saturation (VDS>Vov)</li>
     <li>Calculate small signal parameters(gm,ro)</li>
     <li>Determine Amplifier Parameters(Rin, Rout, Av, Ai)</li>
     </ol>
-    </p>
     <figure>
         <center><img src="images/basicamplifierstages/largeandsmallsignalanalysis.png"/></center>
         <caption>analysis types</caption>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
     </figure>
-    <p>
         Let's summarize all types of analysis to study amplifier parameters,
         we have two types of analysis whether you are doing it by hand or on
         simulator like cadence spectre simulator.
-    </p>
-        <h4>2.1.1. Large Signal Analysis</h4>
+        <h3>2.1.1. Large Signal Analysis</h3>
         <ol>
             <li>Voltage Gain</li>
             <li>Current Gain</li>
@@ -143,18 +211,17 @@
             <li>Output Resistance</li>
             <li>Bandwidth</li>
         </ol>
-        <h4>2.1.2 Small Signal Analysis</h4>
+        <h3>2.1.2 Small Signal Analysis</h3>
         <ol>
             <li>Bias Point</li>
             <li>Signal Swing</li>
             <li>Distortion</li>
         </ol>
-    <h4>2.1.3. Direct Analysis on Schematic</h4>
+    <h3>2.1.3. Direct Analysis on Schematic</h3>
     <figure>
         <center><img src="images/basicamplifierstages/directanalysisonschematic.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
-     <p>
        We can simplify our solution instead of every time removing every transistor and
        draw its small signal model in order to deal with very large circuits that contains
        alot of mos transistors. so first we can remove the vccs gmVgs & gmVbs and add them
@@ -162,41 +229,33 @@
        to simplify more, we found that in most cases gate node is grounded when we are calculating
        small signal model and also we always make the bulk grounded to neglect body effect so that means
        that Vgs=Vbs so we can gm & gmb together in a single gm so delta_Id=(gm+gmb)delta_Vgs
-     </p>
      <figure>
         <center><img src="images/basicamplifierstages/directanalysisonschematic2.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure> 
-    <h4>2.1.4. Common Approximations we usually use:</h4>
-    <p>
+    <h3>2.1.4. Common Approximations we usually use:</h3>
         intrinsic gain >>>1 because it is the max gain we can reach and these 
         approximations are relative for example you can find (1/gm)~=100Kohms
         which is very large but you will find also that ro=10Mohms thats why I said
         that approximations are relative 
-    </p>
     <figure>
         <center><img src="images/basicamplifierstages/commonapproximations.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
-    <h4>2.1.5. Rin/Rout Shortcuts</h4>
-    <p>
+    <h3>2.1.5. Rin/Rout Shortcuts</h3>
         We can simplify the way we use when when we try to find input resistance and output resistance
         of the amplifier, like as follow in figure below we can focus on three parts: 
-    </p>
     <ul>
         <li>R_LFS: Resistance when looking from source</li>
         <li>R_LFD: Resistance when looking from drain</li>
         <li>Gate_resistance: is always very large so we doesn't care about calculating it</li>
     </ul>
-    <p>
         as in figure below: 
-    </p>
     <figure>
         <center><img src="images/basicamplifierstages/equivalentresistance.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
-    <h5>2.1.5.1. Resistance Looking From Drain</h5>
-    <p>
+    <h4>2.1.5.1. Resistance Looking From Drain</h4>
        The eye determines the that I want to see output resistance infront of the red vertical line opposite
        to it, we will find in this case the gate is grounded which means that vgs is only controlled by 
        the voltage drop resistance Rs==>Vgs=-Ix*Rs and we can also neglect body effect as Vgs=Vbs because gate is grounded
@@ -209,21 +268,17 @@
        which can get from it easily Vx/Ix which corresponds to 
        the value of resistance looking from drain we can neglect Rs comparing to gm*ro<br/>
        we can only put gmb=0 when Rs=0 where we will not have body effect
-    </p>
     <figure>
         <center><img src="images/basicamplifierstages/resistancelookingfromdrain.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
-    <p>
        We can say by this derivation that drain is acting like a high impedance node and to summarize we get
        the following equation in figure and its special Case 
-    </p>
     <figure>
         <center><img src="images/basicamplifierstages/resistancelookingfromdrain2.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
-    <h5>2.1.5.2. Resistance Looking From Source</h5>
-    <p>
+    <h4>2.1.5.2. Resistance Looking From Source</h4>
         when looking from source we have same condition on gate where Vbs=Vgs & delta_Id=gm*delta_Vgs
          but the voltage on source node will differ because we replaced rs with a voltage source of value Vx 
          and of current Ix which is injected to mosfet so Vgs=Vg-Vs=0-Vx=-Vx and to explain how idrain=isource
@@ -240,12 +295,10 @@
         in terms of large signal analysis the diode connected mosfet is always at saturation because vds=vgs and the condition
         for saturation is Vds>Vgs-Vth which will always be satisfied
          <!--  $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$ -->
-    </p>
     <figure>
         <center><img src="images/basicamplifierstages/resistancelookingfromsource.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
-    <p>
         for below quiz we are trying to calculate Resistance when looking from source for a three cascoded mosfets in order
         to calculate it we will first start with mosfet that is connected to ground in small signal analysis which is Vdd node in
         case of Pmos as in figure below after calculating rseen from each mosfet we substitute the mosfet in the drawing with
@@ -253,22 +306,20 @@
         R_LFS=ro while we said before that resistancelookingfromsource is a low impedance node but ro is of very high impedance
         and this occured due to cascoding transistors which raises our attention to the effect of cascode stages in the future when
         we are talking about amplifiers
-    </p>
     <figure>
         <center><img src="images/basicamplifierstages/resistancelookingfromsourcequiz.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
-    <h5>2.1.5.3. summary</h5>
+    <h4>2.1.5.3. summary</h4>
     <figure>
         <center><img src="images/basicamplifierstages/rinroutsummary.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
-    <h3>2.2. Voltage Amplifier Model</h3>
+    <h2>2.2. Voltage Amplifier Model</h2>
     <figure>
         <center><img src="images/basicamplifierstages/voltageamplifiermodel.png"/></center>
         <caption><em>Credits: Prof. Hisham Omran</em></caption>
     </figure>
-    <p>
     Lets model above figure with mathematical equations:
         $$InputResistance: R_{in}={v_{in} \over {i_{in}}}$$
         $$Output Resistance: R_{out}=R_{thevenin}={v_x \over i_x} @vin=0$$
@@ -279,78 +330,61 @@
         $$Norton to Thevenin: v_{out,opencircuit}={A_v*v_{in}}={i_{norton}*R_{out}}={({G_m}{v_{in}})}{R_{out}}$$
         $$A_v={v_{out,opencircuit} \over v_{in}}={G_m}{R_{out}}$$
         $$ShortCircuitCurrentGain: A_i={i_{out,sc} \over i_{in}}={i_{out,shortcircuit} \over {{v_{in}} \over R_{in}}}={{G_m}R_{in}}$$
-    </p>
-    <h4>2.2.1 Voltage Amplifier model Equations</h4>
-    <p>
+    <h3>2.2.1. Voltage\Current Amplifier model Equations</h3>
         Lets summarize these equations as follow:
         $$R_{in}={v_{in} \over i_{in}}$$
         $$R_{out}={v_x \over i_x} @ v_{in}=0$$ 
         $$G_m={i_{out,shortcircuit} \over v_{in}} @v_{out}=0$$
         $$A_v={{G_m} R_{out}}$$
         $$A_i={{G_m}R_{in}}$$
-    Remeber that we can get first two equations of Rin& Rout from shortcuts that we learned before all remaining will be is 
+    Remember that we can get first two equations of Rin& Rout from shortcuts that we learned before all remaining will be is 
     calculating transconductance using norton method and then at the end we can get voltage & current gain this method of 
     solution we call it divide and conquer where we simplified large problems into many small problems that we could solve it
     independent of each other
-    </p>
-    <h3>2.3. Common Source Amplifier</h3>
-    <p>
+    <h1>3. Common Source Amplifier</h1>
         Common Source Amplifier Parameters:
-        </p>
         <figure>
             <center><img src="images/basicamplifierstages/commonsourceamplifier.png"/></center>
             <caption>Common Source Amplifier Parameters</caption>
             <caption><em>credits:Prof. Hesham Omran</em></caption>
         </figure>
-         <p>
             Remember that we are using the amplifier to amplify Vsig not Vin.<br/>
             which corresponds to Vsignal.
-         </p>
-         <h4>2.3.1 Case 1. Rout=Inf. using Ideal Current Source </h4> 
-         <h5>2.3.1.1 Theory</h5>
+         <h2>3.1 Case 1. Rout=Inf. using Ideal Current Source </h2> 
+         <h3>3.1.1 Theory</h3>
          <figure>
             <center><img src="images/basicamplifierstages/maximumgain.png"/></center>
             <caption>Common Source Amplifier Parameters</caption>
             <caption><em>credits:Prof. Hesham Omran</em></caption>
         </figure>
-         <p>
             Intrinsic gain means maximum gain which I can obtain from a 
             single transistor
-         </p>
          <figure>
             <center><img src="images/basicamplifierstages/smallsignalanalysiscommonsourcenorout.png"/></center>
             <caption><em>credits:Prof. Hesham Omran</em></caption>
         </figure>
-         <p>
             small signal analysis with rout=inf. by using ideal current source, first item you start 
             to debug in simulation is the bias point because all preceding parameters depend on it
-         </p>
-         <h5>2.3.1.2 simulation</h5>
+         <h3>3.1.2 simulation</h3>
          <figure>
             <center><img src="images/basicamplifierstages/smallsignalanalysiscommonsourcenoroutsim.png"/></center>
             <caption><em>Credits: Eng. Hisham Elreedy</em></caption>
         </figure>
-         <p>
             you wil find vout(red curve) is larger than vin and also of phase difference of pi
             when I bias with current source I no longer need to adjust Vds and worry about its effect on
             gate voltage for losing control over the electron channel
-         </p>
-         <h5>2.3.1.3 Hand Analysis</h5>
-         <p>
+         <h3>3.1.3 Hand Analysis</h3>
             First draw current branch on mosfet drain branch and draw ro in parallel with Vds
             and vbs connect it to ground away from the circuit as in figure below
-        </p>
          <figure>
             <center><img src="images/basicamplifierstages/commonsourceanalysis.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>
-        <p>
             Second combine gm*vgs and gmb*vbs because gate is grounded and then combine them
             in a single gm*vgs and calculate vout by applying kvl on the loop between vout and gnd
             to obtain vout like in figure below which is equal to Vout=-(gm*Vgs)*ro and vin = Vgs
             then we can obtain voltage gain(Av)=Vout/Vin=-gm*ro which demonstrates the results
             that we obtained in the simulation 
-        </p>
          <figure>
             <center><img src="images/basicamplifierstages/commonsourceanalysis2.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
@@ -360,7 +394,7 @@
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>
     
-<h4>2.3.2 Case 2: using finite drain resistance </h4>
+<h2>3.2 Case 2: using finite drain resistance </h2>
     <figure>
         <center><img src="images/basicamplifierstages/currentsourcegainth.png"/></center>
         <caption><em>credits:Prof. Hesham Omran</em></caption>
@@ -373,25 +407,20 @@
         <center><img src="images/basicamplifierstages/currentsourcegain.png"/></center>
         <caption>Common source Gain</caption>
     </figure>
-    <p>
     I removed dc value when plotting output by subtracting the output voltage from the average of the total signal using cadence calculator, you will find that they change in phase to explain this:<br />
     when <mark>vgs increases drain</mark> current increases which affect vout precedingly as voltage drop on resistance increases which makes <mark>Vout decreases</marK> thats why they have phase difference of pi==(180 degrees)
-    </p>
     <figure>
         <center><img src="images/basicamplifierstages/smallsignalanalysiscommonsourceroutsim.png"/></center>
         <caption><em>Credits: Eng. Hisham Elreedy</em></caption>
     </figure>
-     <p>
         vds problem starts to rise here when we put finite resistance on the drain where it made
         the amplifier with very low gain and when we increase Rout we can't increase it than ro=23.523Kohms
-     </p>
-  <h4>2.3.3. case 3: using finite drain & source resistance</h4>
+  <h2>3.3. case 3: using finite drain & source resistance</h2>
     <figure>
         <center><img src="images/basicamplifierstages/csfinitedrainsourceresistance.png"/></center>
         <caption><em>Credits: prof. Hesham Omran</em></caption>
     </figure>
-    <h5>Transconductance</h5>  
-    <p>
+    <h3>3.3.1. Transconductance</h3>  
         first to calculate transconductance as we said before we will use norton method when we make vout=0(short circuit)
         as in above figure and calculate iout,sc where now RD will disappear from our calculation because it is parallel with
         a short circuit and the current will be equivalent to the mosfet drain current where we can get mosfet drain current
@@ -403,87 +432,74 @@
         $$then, {i_{out,sc}}=-g_{m}{(v_{in}-(-{{i_{out,sc}}Rs}))+{-{{i_{out,sc}}Rs} \over {r_o}}}$$
         $$then, {i_{out,sc}[1+{g_{m}R_s}+{{R_s} \over {r_o}}]}=-{g_m}{v_{in}}$$
         $$then, transconductance=G_m={i_{out,sc} \over v_{in}}={-{g_m} \over {[1+{g_{m}R_s}+{{R_s} \over {r_o}}]}}$$
-    </p>
-    <h5>outputResistance</h5>  
-    <p>
+    <h3>3.3.2. Output Resistance</h3>  
         to calculate Rout which is equivalent to thevenin resistance where we will close any independent sources and try
         to use Rin/Rout shortcuts:
         $$R_{LFD}=r_{o}[1+(g_{m}+g_{mb})]R_s$$
         $$R_{out}={R_{LFD}||R_D}={{R_D}||{{r_o}[1+(g_m+g_{mb})R_s]}}$$
-    </p>
-    <p>
         from above equations we could now determine voltage gain and current gain where:
-        $$Voltagegain: A_v={{G_m}{R_{out}}}$$
-        $$Currentgain: A_i={{G_m}R_{in}}$$
-    </p>
-    <h5>Output Resistance Cases</h5>
-    <p>
+        $$Voltagegain: A_v={{G_m}{R_{out}}}={{I_{out}\over V_{in}}*{V_{out}\over I_{out}}={V_{out}\over V_{in}}}$$
+        $$Currentgain: A_i={{G_m}R_{in}}={{I_{out}\over V_{in}}*{V_{in}\over I_{in}}={I_{out}\over I_{in}}}$$
+    <h4>3.3.2.1. Output Resistance Cases</h4>
         we could have three cases to for RD:
         <ul>
-            <li>if RD is ac o.c.(currentsource): voltage_gain=-gm*ro</li>
-            <li>if RD <<<< RLFD: </li>
+            <li>if \(R_D\) is ac o.c.(currentsource): \(A_v=-g_m*ro\)</li>
+            <li>if \(R_D <<<< R_{LFD}\): \(A_v=-g_m*R_D\)</li>
         </ul>  
-    </p>
-    <h2>3. Cascode Amplifier</h2>
-        <h3>3.1. double stage telescopic cascode with ideal current source as load</h3>
+    <h1>5. Cascode Amplifier</h1>
+        <h2>5.1. double stage telescopic cascode with ideal current source as load</h2>
         <figure>
             <center><img src="images/cascodeamplifier/simplecascodedivideandconquer.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>
-        <h4>3.1.1. Small Signal Analysis</h4>
-        <h5>3.1.1.1 TransConductance</h5>
-        <p>
+        <h3>5.1.1. Small Signal Analysis</h3>
+        <h4>5.1.1.1 TransConductance</h4>
             schematic below shows a simple model of cascode amplifier which we will try to calculate its parameters
             like before as follow(notice that we neglected ro of M1 and remember that common base acts like current buffer):
             $$i_{out,sc}=-{g_{m1}}v_{in}$$
             $$G_{mtotal}={i_{out,sc} \over v_{in}}=-g_{m1}$$
             Same Gm of CommonSource amplifier
-        </p>
-        <p>
             We can solve it also in another way by solving each stage independently like solving first CommonSource stage and try
             to get inorton you will find it is equal to -gm1 and rout seen from source of M2 as follow:
             $$i_{norton,Shortcircuit}=-g_{m1}v_{in}$$
             $$Transconductance_{firstStage}=-g_{m1}$$
             $$i_{norton,shortcircuit}=-g_{m1}v_{in}$$
             $$Transconductance_{secondStage}=-g_{m1}$$
-        </p>
-        <h5>3.1.1.2. Output Resistance</h5>
-        <p>
+        <h4>5.1.1.2. Output Resistance</h4>
             $$R_{LFDofM1}=ro1$$
             $$R_{LFDofM2}=r_{o2}[1+(g_{m2}+g_{mb2}R_{LFDofM1})]$$
-            $$R_{outtotal}= \infty(currentsource) ||R_{LFDofM2}=R_{LFDofM2}=r_{o2}{[1+(g_{m2}+g_{mb2}r_{o1})]} \sim ={(g_{m2}+g_{mb2})}{r_{o1}}{r_{o2}}$$
+            $$R_{outtotal}= \infty(currentsource) ||R_{LFDofM2}$$
+            $$=R_{LFDofM2}=r_{o2}{[1+(g_{m2}+g_{mb2}r_{o1})]} \sim ={(g_{m2}+g_{mb2})}{r_{o1}}{r_{o2}}$$
             Rout is significantly boosted by that voltage gain is significantly boosted
-        </p>
-        <p>
+
             Second Method:
             $$R_{LFSofM2}={1 \over {g_m+g_{mb}}}*{(1+{R_D \over r_o})} where R_D= \infty ,so, R_{LFSofM2}=\infty$$
             $$OutputResistance_{firststage}=R_{LFSofM2}||r_{o1}=r_{o1}$$
             $$R_{LFDofM2}=r_{o2}[1+(g_{m}+g_{mb})]R_s$$ 
             $$where,R_s=0,because, v_{x}=0(Thevenin condition),so,R_{LFDofM2} \sim =r_{o2}$$
             $$OutputResistance_{secondstage}=\infty || R_{LFDofM2}=r_{o2}$$
-        </p>
-        <h5>3.1.1.3. Voltage Gain</h5>
-        <p>
+        <h4>5.1.1.3. Voltage Gain</h4>
+
             First Method:
             $$A_v =G_{mtotal} R_{outtotal} \sim = -{g_{m1}(g_{m1}+g_{mb2})r_{o1}r_{o2}}$$
             by assuming all gm and ro are equal and neglecting body effect we can get:
             $$A_v=-(g_m r_o)^2$$
-        </p>
-        <p>
+
             Second Method:
             $$VoltageGain_{M1}=A_{v1}=G_{m1}*R_{outofm1}=-g{m1}*r{o1}$$
             $$VoltageGain_{M2}=A_{v2}=G_{m2}*R_{outofm2}=-g{m1}*r{o2}$$
             $$TotalVoltageGain={v{out} \over v_{in}}={v{out} \over v_{x}}*{v{x} \over v_{in}}=A_{v1}*A_{v2}=-(g_m r_o)^2$$
-        </p>
-        <h4>3.2. Large Signal Analysis</h4>
-        <p>
+
+        <h2>5.2. Large Signal Analysis</h2>
             how Vbias affects the circuit and what do I need from it? first I use it to keep M1 in sat and 
             to keep M1 in sat we need Vds1>Vgs1-Vth1 where the worst case is at the largest value of Vgs because this case will
             put limits on V<sub>B</sub> to keep M1 in sat so:
             $$V_B>V_{GS2}+V_{DS1,max},Where, V_{DS1,max}={V_{overdrive,max}=V_{in,max}-V_{Th1}}$$
             $$Then, V_B>V_{GS2}+(V_{in,max}-V_{Th1}) $$
             second thing I need from V<sub>B</sub> is to keep also M2 in sat where:
-            $$to keep M2 in sat: V_{DS2}>V_{GS2}-V_{TH2},by removing S_2 from both sides then V_{D2}>V_{G2}-V_{Th2}$$ 
+            $$to \space keep \space M2 \space in \space sat: V_{DS2}>V_{GS2}-V_{TH2},$$
+            $$by \space removing \space S_2 \space from \space both \space sides$$
+            $$\therefore V_{D2}>V_{G2}-V_{Th2}$$ 
             $$where, V_{G2}=V_B, and, V_{D2}=V_{out}, then, V_{out}>{V_B-V{Th2}}$$
             $$then, V_B < {V_{out,min}-V_{Th2}}$$
             where V<sub>out,min</sub> is the minimum voltage required to keep M1,M2 sat which is equal to 2V<sub>overdrive</sub>
@@ -492,24 +508,21 @@
             which means that limits on output range is oppositely coupled with input range as condition of V<sub>out,min</sub>
             must be larger than V<sub>in,max</sub> + V<sub>GS2</sub> for same threshold voltage in order to specify an amount for
             V<sub>B</sub> if this doesn't happen we will either hurt input or output range
-        </p>
-        <h3>3.2. double stage telescopic cascode with finite resistance R<sub>D</sub> as load</h3>
+        <h3>5.2.1. double stage telescopic cascode with finite resistance R<sub>D</sub> as load</h3>
         <figure>
             <center><img src="images/cascodeamplifier/bwextensioncascode.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>
-        <p>
             when we use finite Resistance R<sub>D</sub> by that we remove the effect of boosting R<sub>out</sub> so what
             do I got benefitted from using cascoded transistors in this case we are increasing voltage gain but it will 
             affect the bandwidth of the circuit which we will discuss later on
-        </p>
-        <h3>3.3. double stage telescopic cascode with active cascode load</h3>
+        <h2>5.3. double stage telescopic cascode with active cascode load</h2>
         <figure>
             <center><img src="images/cascodeamplifier/simplecascodewithactiveload.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>
-        <h4>3.3.1. Small Signal Analysis</h4>
-        <p>
+        <h3>5.3.1. Small Signal Analysis</h3>
+
             If we want to keep the large R<sub>out</sub>, we must use cascode load why not a current source because
             in real life there is nothing called ideal current source but we create current source using transistors 
             and why not using single stage because output resistance of the load will be small compared to o/p resistance
@@ -518,9 +531,8 @@
             $$A_v=-{(g_m r_o)^2 \over 2}$$ we divided by two because R<sub>out</sub> seen from the load in this case is 
             equal to R<sub>out</sub> seen from the driver in this case so total R<sub>out</sub> is equivalent to parallelism
             of them
-        </p>
-        <h4>3.3.2. Large Signal Analysis</h4>
-        <p>
+
+        <h3>5.3.2. Large Signal Analysis</h3>
             We are concerned about it now because we are now talking about a circuit that 
             can be implemented in real life so we are concerned about biasing the circuit correctly, we now that 
             for every transistor its drain-source voltage must be greater than overdrive voltage so:
@@ -533,17 +545,15 @@
             and you can remember also the other parameters in large signal analysis by returning in index or you can
             continue with me we are now concerned with output swing. which we can calculate from upper, lower limits
             where outputswing=upperlimit-lowerlimit= V<sub>DD</sub>-4V<sub>ov</sub> which is demonstrated in figure below:
-        </p>
         <figure>
             <center><img src="images/cascodeamplifier/simplecascodewithactiveloadoutputswing.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>        
-        <h3>3.4. double stage Folded cascode with ideal current source as load</h3>
+        <h2>5.4. double stage Folded cascode with ideal current source as load</h2>
         <figure>
             <center><img src="images/cascodeamplifier/telescopiccascode.png"/></center>
             <caption><em>Credits: prof. Hesham Omran</em></caption>
         </figure>  
-        <p>
             The difference between folded cascode and telescopic cascode is that in telescopic to increase stages, we increase
             the number of common gate stages that we add above common source where in folded cascode common source stage
             is coupled with a current source and a second common gate stage where current is divided among them, but Ib1
@@ -554,8 +564,10 @@
             $$V_{out,min}>{V_B - V_{TH2}}$$
             Mostly when we bias transistors we don't bias it at edge of saturation but a little deeper which help me increase ro and by
             that increase intrinsic gain and help to achieve an amplifier with a perfect Performance, 
-        </p>
-        <h3>3.5. Super Cascode</h3>
+        <h2>5.5. Super Cascode</h2>
+            $$g_{m,super}=A_v * g_m$$
+            $$r_{o,super}=r_o$$
+        
         <h2>4. Frequency Response</h2>
         <h3>Bode Plot Rules</h3>
         <table>
@@ -576,6 +588,7 @@
             </tr>
         </table>
         <h2>5. Negative Feedback</h2>
+        
         
 </section>
 <footer>
